@@ -1,0 +1,17 @@
+buildscript {
+
+    dependencies {
+        classpath kotlinPlugin
+    }
+}
+
+apply plugin: 'kotlin'
+
+dependencies {
+
+    compile kotlinStdLib
+
+    // Test
+    testCompile spekApi
+    testCompile spekJUnitPlatformEngine
+}

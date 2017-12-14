@@ -1,0 +1,43 @@
+buildscript {
+
+    ext {
+
+        /////////////////////////////////////////////////////
+        // Versions
+
+        // Libraries
+        kotlinVersion = '1.2.0'
+
+        // Test
+        spekVersion = '1.1.5'
+
+        /////////////////////////////////////////////////////
+        // Plugins
+
+        kotlinPlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+
+        /////////////////////////////////////////////////////
+        // Dependencies
+
+        // Libraries
+        kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+
+        // Test
+        spekApi = "org.jetbrains.spek:spek-api:$spekVersion"
+        spekJUnitPlatformEngine = "org.jetbrains.spek:spek-junit-platform-engine:$spekVersion"
+    }
+}
+
+subprojects {
+
+    buildscript {
+        repositories {
+            jcenter()
+        }
+    }
+
+    repositories {
+        jcenter()
+        maven { url "http://dl.bintray.com/jetbrains/spek" }
+    }
+}
