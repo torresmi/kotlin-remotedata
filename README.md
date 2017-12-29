@@ -68,6 +68,21 @@ fun loadData(): Observable<RemoteData<MyError, Data>> {
 }
 ```
 
+## Download
+Gradle: 
+```
+compile 'com.torresmi:remotedata:1.0'
+```
+Maven:
+```
+<dependency>
+  <groupId>com.torresmi</groupId>
+  <artifactId>remotedata</artifactId>
+  <version>1.0</version>
+  <type>pom</type>
+</dependency>
+```
+
 ## Why 
 We often need to fetch data, and doing so means that we often setup state for this operation. We might want to do the following: 
 
