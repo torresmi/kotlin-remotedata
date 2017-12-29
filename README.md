@@ -71,21 +71,6 @@ fun loadData(): Observable<RemoteData<MyError, Data>> {
 }
 ```
 
-## Download
-Gradle: 
-```
-compile 'com.torresmi:remotedata:1.0'
-```
-Maven:
-```
-<dependency>
-  <groupId>com.torresmi</groupId>
-  <artifactId>remotedata</artifactId>
-  <version>1.0</version>
-  <type>pom</type>
-</dependency>
-```
-
 ## Why 
 We often need to fetch data, and doing so means that we often setup state for this operation. We might want to do the following: 
 
@@ -130,4 +115,17 @@ Sounds simple enough. A naive approach is the following:
  3. We might have to duplicate this error prone state for other operations.
  4. This state allows for **16 different combinations**, and many of those wouldn't make sense. For example, if the state says it's loading but it also has an error or data. 
  
- 
+ ## Download
+Gradle: 
+```groovy
+compile 'com.torresmi:remotedata:1.0'
+```
+Maven:
+```xml
+<dependency>
+  <groupId>com.torresmi</groupId>
+  <artifactId>remotedata</artifactId>
+  <version>1.0</version>
+  <type>pom</type>
+</dependency>
+```
