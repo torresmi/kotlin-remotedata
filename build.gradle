@@ -11,13 +11,14 @@ buildscript {
 
         // Test
         assertJVersion = '2.8.0'
+        jUnitPluginVersion = '1.0.0'
         spekVersion = '1.1.5'
 
         /////////////////////////////////////////////////////
         // Plugins
 
         kotlinPlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        jUnitPlugin = "org.junit.platform:junit-platform-gradle-plugin:1.0.0"
+        jUnitPlugin = "org.junit.platform:junit-platform-gradle-plugin:$jUnitPluginVersion"
         dokkaPlugin = "org.jetbrains.dokka:dokka-gradle-plugin:$dokkaVersion"
 
         /////////////////////////////////////////////////////
