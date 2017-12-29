@@ -6,8 +6,10 @@ buildscript {
         // Versions
 
         // Libraries
+        bintrayPluginVersion = '1.7.3'
         dokkaVersion = '0.9.15'
         kotlinVersion = '1.2.0'
+        mavenPluginVersion = '1.4.1'
 
         // Test
         assertJVersion = '2.8.0'
@@ -17,9 +19,11 @@ buildscript {
         /////////////////////////////////////////////////////
         // Plugins
 
-        kotlinPlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        jUnitPlugin = "org.junit.platform:junit-platform-gradle-plugin:$jUnitPluginVersion"
+        bintrayPlugin = "com.jfrog.bintray.gradle:gradle-bintray-plugin:$bintrayPluginVersion"
         dokkaPlugin = "org.jetbrains.dokka:dokka-gradle-plugin:$dokkaVersion"
+        jUnitPlugin = "org.junit.platform:junit-platform-gradle-plugin:$jUnitPluginVersion"
+        kotlinPlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        mavenPlugin = "com.github.dcendents:android-maven-gradle-plugin:$mavenPluginVersion"
 
         /////////////////////////////////////////////////////
         // Dependencies

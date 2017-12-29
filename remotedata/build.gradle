@@ -4,12 +4,16 @@ buildscript {
         classpath kotlinPlugin
         classpath jUnitPlugin
         classpath dokkaPlugin
+        classpath bintrayPlugin
+        classpath mavenPlugin
     }
 }
 
 apply plugin: 'kotlin'
 apply plugin: 'org.junit.platform.gradle.plugin'
 apply plugin: 'org.jetbrains.dokka'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
 
 junitPlatform {
     filters {
@@ -33,3 +37,29 @@ dependencies {
     testCompile spekApi
     testCompile spekJUnitPlatformEngine
 }
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'remotedata'
+
+    publishedGroupId = 'com.torresmi'
+    libraryName = 'RemoteData'
+    artifact = 'remotedata'
+
+    libraryDescription = 'Data type that represents the possible states when fetching data from a remote source.'
+
+    siteUrl = 'https://github.com/torresmi/kotlin-remotedata.git'
+    gitUrl = 'https://github.com/torresmi/kotlin-remotedata.git'
+
+    libraryVersion = '1.0'
+
+    developerId = 'torresmi'
+    developerName = 'Michael Torres'
+    developerEmail = 'torresmi@mail.gvsu.edu'
+
+    licenseName = 'MIT'
+    licenseUrl = 'https://opensource.org/licenses/MIT'
+    allLicenses = ["MIT"]
+}
+
+apply from: "../upload.gradle"
