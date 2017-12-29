@@ -7,7 +7,10 @@ This is a sealed class that provides 4 possible states, with only one state vali
  2. **Loading** - Operation in progress
  3. **Success** - Operation finished successfully, with the data
  4. **Failure** - Operation finished but failed, with the error 
- 
+  
+| Failure Case | Success Case |
+| --------------- | ---------------- |
+| ![Failure](https://github.com/torresmi/kotlin-remotedata/raw/master/assets/error_case.gif) | ![Success](https://github.com/torresmi/kotlin-remotedata/raw/master/assets/success_case.gif)
  
  ```kotlin
  // Initial State 
