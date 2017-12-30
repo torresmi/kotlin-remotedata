@@ -1,9 +1,9 @@
 # RemoteData
 Data type that represents the possible states when fetching data from a remote source. Kotlin port of https://github.com/krisajenkins/remotedata
 
-This is a sealed class that provides 4 possible states, with only one state valid at a time. Similar to an Enum, but each case can have associated values. 
+This is a sealed class that provides 4 possible states when loading data. Similar to an Enum, but each case can have associated values. So you can always correctly model the state of the request operation at any given point.
  
- 1. **NotAsked** - Initial state
+ 1. **NotAsked** - No operation in progress
  2. **Loading** - Operation in progress
  3. **Success** - Operation finished successfully, with the data
  4. **Failure** - Operation finished but failed, with the error 
@@ -12,20 +12,25 @@ This is a sealed class that provides 4 possible states, with only one state vali
 | --------------- | ---------------- |
 | ![Failure](https://github.com/torresmi/kotlin-remotedata/raw/master/assets/error_case.gif) | ![Success](https://github.com/torresmi/kotlin-remotedata/raw/master/assets/success_case.gif)
  
- ```kotlin
- // Initial State 
+ State when no operation was requested:
+```kotlin
  var operation: RemoteData<MyError, MyData> = RemoteData.NotAsked
- 
- // State while loading
- var operation: RemoteData<MyError, MyData> = RemoteData.Loading
+ ```
+ State while loading:
+ ```kotlin
+  var operation: RemoteData<MyError, MyData> = RemoteData.Loading
+ ```
 
- // State after loading successfully
+ State after loading successfully:
+ ```kotlin
  var operation: RemoteData<MyError, MyData> = RemoteData.Success(data)
- 
- // State after failure loading
+ ```
+
+ State after failure loading:
+```kotlin
  var operation: RemoteData<MyError, MyData> = RemoteData.Failure(error)
  ```
- 
+
 Being a sealed class means that the compiler can help us think of all valid state possibilities, providing extra data when necessary.
 
 ```kotlin
@@ -43,19 +48,19 @@ There are helper functions to make working with all possibilities easier.
 
 ```kotlin
 // Get the value if finished loading, or use a default value. 
-var data = operation.getOrElse(default)
+val item = operation.getOrElse(defaultItem)
 
 // Map the value if it's a successful operation
-operation.map { data -> // update data }
+operation.map { item -> /** update data */ }
 
 // FlatMap with another RemoteData 
-operation.flatMap { data -> // bad data, return RemoteData.Failure } 
+operation.flatMap { item -> /** bad data, return RemoteData.Failure */ } 
 
 // Merge operations
-operation.mergeWith(otherOperation) { data1, data2 -> // combine results }
+operation.mergeWith(otherOperation) { item1, item2 -> /** combine results */ }
 ```
 
-It's also useful in RxJava Observables to avoid leaving _known_ possible error states out of `onError`, leaving that terminal case for exceptional errors.
+It's also useful in RxJava Observables to avoid keeping _known_ possible error states out of `onError`, leaving that terminal case for exceptional unexpected errors.
 
 ```kotlin
 fun loadData(): Observable<RemoteData<MyError, Data>> {
@@ -78,34 +83,37 @@ We often need to fetch data, and doing so means that we often setup state for th
 
 Sounds simple enough. A naive approach is the following:
 
- ```kotlin
- // State while loading
+State while loading:
+```kotlin
  var isLoading: Boolean = true
- var data: Data? = null
-
- // State after loading
+ var item: Data? = null
+```
+State after loading:
+```kotlin
  var isLoading: Boolean = false
- var data: Data? = loadedData
-
+ var item: Data? = loadedData
  ```
  But we forgot about handling errors. So we add error state to render an error screen if there is an error. 
  
+ State while loading:
  ```kotlin
- // State while loading
  var isLoading: Boolean = true
- var data: Data? = null
+ var item: Data? = null
  var error: Throwable? = null
+```
 
- // State after loading successfully
+ State after loading successfully:
+ ```kotlin
  var isLoading: Boolean = false
- var data: Data? = loadedData
+ var item: Data? = loadedData
  var error: Throwable? = null
+ ```
  
- // State after failure loading
+ State after failure loading:
+ ```kotlin
  var isLoading: Boolean = false
- var data: Data? = null
+ var item: Data? = null
  var error: Throwable? = error
-
  ```
  
  There are issues with this approach. 
@@ -115,6 +123,7 @@ Sounds simple enough. A naive approach is the following:
  3. We might have to duplicate this error prone state for other operations.
  4. This state allows for **16 different combinations**, and many of those wouldn't make sense. For example, if the state says it's loading but it also has an error or data. 
  
+ If you have a list of items to load, one could use an empty list instead of `null`. However, there is still the issue of easily mixing up if the data is _truly_ empty or if it is just empty from loading or errors.
  ## Download
 Gradle: 
 ```groovy
