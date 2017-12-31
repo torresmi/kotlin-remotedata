@@ -40,9 +40,9 @@ dependencies {
 
 ext {
     bintrayRepo = 'maven'
-    bintrayName = 'remotedata'
+    bintrayName = 'RemoteData'
 
-    publishedGroupId = 'com.torresmi'
+    publishedGroupId = 'com.github.torresmi'
     libraryName = 'RemoteData'
     artifact = 'remotedata'
 

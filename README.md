@@ -127,14 +127,5 @@ State after loading:
  ## Download
 Gradle: 
 ```groovy
-compile 'com.torresmi:remotedata:1.1'
-```
-Maven:
-```xml
-<dependency>
-  <groupId>com.torresmi</groupId>
-  <artifactId>remotedata</artifactId>
-  <version>1.1</version>
-  <type>pom</type>
-</dependency>
+compile 'com.github.torresmi:remotedata:1.1'
 ```
