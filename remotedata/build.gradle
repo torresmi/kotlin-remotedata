@@ -1,13 +1,4 @@
-buildscript {
-
-    dependencies {
-        classpath kotlinPlugin
-        classpath jUnitPlugin
-        classpath dokkaPlugin
-        classpath bintrayPlugin
-        classpath mavenPlugin
-    }
-}
+import dependencies.Deps
 
 apply plugin: 'kotlin'
 apply plugin: 'org.junit.platform.gradle.plugin'
@@ -30,12 +21,12 @@ dokka {
 
 dependencies {
 
-    compile kotlinStdLib
+    compile Deps.kotlin
 
     // Test
-    testCompile assertJ
-    testCompile spekApi
-    testCompile spekJUnitPlatformEngine
+    testCompile Deps.assertJ
+    testCompile Deps.Spek.api
+    testCompile Deps.Spek.engine
 }
 
 ext {
