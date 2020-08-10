@@ -8,7 +8,7 @@ import io.kotest.property.arbitrary.map
 import io.kotest.property.arbitrary.string
 import io.kotest.property.checkAll
 
-class RemoteDataTransformationsTest : DescribeSpec({
+class RemoteDataTest : DescribeSpec({
     
     describe("construction") {
 
