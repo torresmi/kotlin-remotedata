@@ -1,7 +1,6 @@
 package dependencies
 
 object Deps {
-    val assertJ = dependency("org.assertj:assertj-core", Version.assertJ)
     object Kotest : Group("io.kotest") {
         val assertions = withArtifact("kotest-assertions-core-jvm", Version.kotest)
         val console = withArtifact("kotest-runner-console-jvm", Version.kotest)
@@ -26,12 +25,9 @@ abstract class Group(val group: String) {
 private fun dependency(path: String, version: String) = "$path:$version"
 
 object Version {
-    val assertJ = "2.8.0"
     val bintray = "1.7.3"
     val dokka = "0.9.15"
-    val jacoco = "0.8.4"
     val kotest = "4.1.3"
-    val kotestConsole = "4.1.3"
     val kotlin = "1.3.72"
     val maven = "1.4.1"
     val versions = "0.29.0"
