@@ -8,7 +8,7 @@ import io.kotest.property.arbitrary.map
 import io.kotest.property.arbitrary.string
 import io.kotest.property.checkAll
 
-class RemoteDataTransformationsTest : DescribeSpec({
+class RemoteDataTest : DescribeSpec({
     
     describe("construction") {
 
@@ -353,6 +353,71 @@ class RemoteDataTransformationsTest : DescribeSpec({
                     sut.getOrElse(default) shouldBe default
                     sut.getOrElse { default } shouldBe default
                 }
+            }
+        }
+    }
+
+    describe("current state conditionals") {
+
+        describe("RemoteData is success") {
+
+            it("returns true upon isSuccess") {
+                checkAll(successGen()) { sut ->
+                    sut.isSuccess() shouldBe true
+                }
+            }
+
+            it("returns false upon other checks") {
+                checkAll(successGen()) { sut ->
+                    sut.isLoading() shouldBe false
+                    sut.isNotAsked() shouldBe false
+                    sut.isFailure() shouldBe false
+                }
+            }
+        }
+
+        describe("RemoteData is failure") {
+
+            it("returns true upon isFailure") {
+                checkAll(failureGen()) { sut ->
+                    sut.isFailure() shouldBe true
+                }
+            }
+
+            it("returns false upon other checks") {
+                checkAll(failureGen()) { sut ->
+                    sut.isLoading() shouldBe false
+                    sut.isNotAsked() shouldBe false
+                    sut.isSuccess() shouldBe false
+                }
+            }
+        }
+
+        describe("RemoteData is loading") {
+
+            it("returns true upon isLoading") {
+                RemoteData.Loading.isLoading() shouldBe true
+            }
+
+            it("returns false upon other checks") {
+                val sut = RemoteData.Loading
+                sut.isNotAsked() shouldBe false
+                sut.isSuccess() shouldBe false
+                sut.isFailure() shouldBe false
+            }
+        }
+
+        describe("RemoteData is not asked") {
+
+            it("returns true upon isNotAsked") {
+                RemoteData.NotAsked.isNotAsked() shouldBe true
+            }
+
+            it("returns false upon other checks") {
+                val sut = RemoteData.NotAsked
+                sut.isSuccess() shouldBe false
+                sut.isLoading() shouldBe false
+                sut.isFailure() shouldBe false
             }
         }
     }

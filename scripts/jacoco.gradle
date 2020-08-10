@@ -1,0 +1,7 @@
+import dependencies.Versions
+
+apply plugin: "jacoco"
+
+jacoco {
+    toolVersion = Versions.jacoco
+}

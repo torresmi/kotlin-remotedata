@@ -1,21 +1,21 @@
 package dependencies
 
 object Deps {
-    val assertJ = dependency("org.assertj:assertj-core", Version.assertJ)
     object Kotest : Group("io.kotest") {
-        val assertions = withArtifact("kotest-assertions-core-jvm", Version.kotest)
-        val console = withArtifact("kotest-runner-console-jvm", Version.kotest)
-        val property = withArtifact("kotest-property-jvm", Version.kotest)
-        val runner = withArtifact("kotest-runner-junit5-jvm", Version.kotest)
+        val assertions = withArtifact("kotest-assertions-core-jvm", Versions.kotest)
+        val console = withArtifact("kotest-runner-console-jvm", Versions.kotest)
+        val property = withArtifact("kotest-property-jvm", Versions.kotest)
+        val runner = withArtifact("kotest-runner-junit5-jvm", Versions.kotest)
     }
-    val kotlin = dependency("org.jetbrains.kotlin:kotlin-stdlib", Version.kotlin)
+    val kotlin = dependency("org.jetbrains.kotlin:kotlin-stdlib", Versions.kotlin)
 }
 
 object Plugins {
-    val bintray = dependency("com.jfrog.bintray.gradle:gradle-bintray-plugin", Version.bintray)
-    val dokka = dependency("org.jetbrains.dokka:dokka-gradle-plugin", Version.dokka)
-    val kotlin = dependency("org.jetbrains.kotlin:kotlin-gradle-plugin", Version.kotlin)
-    val maven = dependency("com.github.dcendents:android-maven-gradle-plugin", Version.maven)
+    val bintray = dependency("com.jfrog.bintray.gradle:gradle-bintray-plugin", Versions.bintray)
+    val dokka = dependency("org.jetbrains.dokka:dokka-gradle-plugin", Versions.dokka)
+    val kotlin = dependency("org.jetbrains.kotlin:kotlin-gradle-plugin", Versions.kotlin)
+    val maven = dependency("com.github.dcendents:android-maven-gradle-plugin", Versions.maven)
+    val versions = dependency("com.github.ben-manes:gradle-versions-plugin", Versions.versions)
 }
 
 abstract class Group(val group: String) {
@@ -24,12 +24,12 @@ abstract class Group(val group: String) {
 
 private fun dependency(path: String, version: String) = "$path:$version"
 
-object Version {
-    val assertJ = "2.8.0"
+object Versions {
     val bintray = "1.7.3"
     val dokka = "0.9.15"
+    val jacoco = "0.8.5"
     val kotest = "4.1.3"
-    val kotestConsole = "4.1.3"
     val kotlin = "1.3.72"
     val maven = "1.4.1"
+    val versions = "0.29.0"
 }
