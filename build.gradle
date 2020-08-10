@@ -28,4 +28,6 @@ subprojects {
         jcenter()
         maven { url "http://dl.bintray.com/jetbrains/spek" }
     }
+
+    apply from: "$rootDir/scripts/jacoco.gradle"
 }
