@@ -48,4 +48,4 @@ ext {
     allLicenses = ["MIT"]
 }
 
-apply from: "../upload.gradle"
+apply from: "$rootDir/scripts/upload.gradle"
