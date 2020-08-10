@@ -16,6 +16,7 @@ object Plugins {
     val dokka = dependency("org.jetbrains.dokka:dokka-gradle-plugin", Version.dokka)
     val kotlin = dependency("org.jetbrains.kotlin:kotlin-gradle-plugin", Version.kotlin)
     val maven = dependency("com.github.dcendents:android-maven-gradle-plugin", Version.maven)
+    val versions = dependency("com.github.ben-manes:gradle-versions-plugin", Version.versions)
 }
 
 abstract class Group(val group: String) {
@@ -28,8 +29,10 @@ object Version {
     val assertJ = "2.8.0"
     val bintray = "1.7.3"
     val dokka = "0.9.15"
+    val jacoco = "0.8.4"
     val kotest = "4.1.3"
     val kotestConsole = "4.1.3"
     val kotlin = "1.3.72"
     val maven = "1.4.1"
+    val versions = "0.29.0"
 }
