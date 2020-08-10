@@ -10,7 +10,6 @@ buildscript {
     dependencies {
         classpath Plugins.bintray
         classpath Plugins.dokka
-        classpath Plugins.junit
         classpath Plugins.kotlin
         classpath Plugins.maven
     }

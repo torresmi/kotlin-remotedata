@@ -2,17 +2,18 @@ package dependencies
 
 object Deps {
     val assertJ = dependency("org.assertj:assertj-core", Version.assertJ)
-    val kotlin = dependency("org.jetbrains.kotlin:kotlin-stdlib", Version.kotlin)
-    object Spek : Group("org.jetbrains.spek") {
-        val api = withArtifact("spek-api", Version.spek)
-        val engine = withArtifact("spek-junit-platform-engine", Version.spek)
+    object Kotest : Group("io.kotest") {
+        val assertions = withArtifact("kotest-assertions-core-jvm", Version.kotest)
+        val console = withArtifact("kotest-runner-console-jvm", Version.kotest)
+        val property = withArtifact("kotest-property-jvm", Version.kotest)
+        val runner = withArtifact("kotest-runner-junit5-jvm", Version.kotest)
     }
+    val kotlin = dependency("org.jetbrains.kotlin:kotlin-stdlib", Version.kotlin)
 }
 
 object Plugins {
     val bintray = dependency("com.jfrog.bintray.gradle:gradle-bintray-plugin", Version.bintray)
     val dokka = dependency("org.jetbrains.dokka:dokka-gradle-plugin", Version.dokka)
-    val junit = dependency("org.junit.platform:junit-platform-gradle-plugin", Version.junitPlugin)
     val kotlin = dependency("org.jetbrains.kotlin:kotlin-gradle-plugin", Version.kotlin)
     val maven = dependency("com.github.dcendents:android-maven-gradle-plugin", Version.maven)
 }
@@ -27,8 +28,8 @@ object Version {
     val assertJ = "2.8.0"
     val bintray = "1.7.3"
     val dokka = "0.9.15"
-    val junitPlugin = "1.0.0"
+    val kotest = "4.1.3"
+    val kotestConsole = "4.1.3"
     val kotlin = "1.3.72"
     val maven = "1.4.1"
-    val spek = "1.1.5"
 }
