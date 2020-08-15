@@ -1,0 +1,23 @@
+import dependencies.Deps
+
+apply plugin: 'kotlin'
+apply plugin: 'org.jetbrains.dokka'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+dokka {
+    outputFormat = 'html'
+    outputDirectory = "$buildDir/javadoc"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+    compile project(":remotedata")
+    compile Deps.kotlin
+
+    testCompile project(":test-util")
+}
+

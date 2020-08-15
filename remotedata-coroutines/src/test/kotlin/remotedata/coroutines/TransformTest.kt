@@ -32,13 +32,13 @@ class TransformationsTest : DescribeSpec({
 
             it("does not invoke the mapper") {
                 checkAll(nonSuccessGen()) { sut ->
-                    sut.map(mapper)
+                    sut.mapAsync(mapper)
                 }
             }
 
             it("does not change the state") {
                 checkAll(nonSuccessGen()) { sut ->
-                    sut.map(mapper) shouldBe sut
+                    sut.mapAsync(mapper) shouldBe sut
                 }
             }
         }
@@ -51,13 +51,13 @@ class TransformationsTest : DescribeSpec({
 
             it("does not invoke the mapper") {
                 checkAll(successGen()) { sut ->
-                    sut.mapError(mapper)
+                    sut.mapErrorAsync(mapper)
                 }
             }
 
             it("does not change the state") {
                 checkAll(successGen()) { sut ->
-                    sut.mapError(mapper) shouldBe sut
+                    sut.mapErrorAsync(mapper) shouldBe sut
                 }
             }
         }
@@ -66,7 +66,7 @@ class TransformationsTest : DescribeSpec({
 
             it("should be a failure with the value returned from the mapper") {
                 checkAll(failureGen(), Arb.string()) { sut, newValue ->
-                    sut.mapError { newValue } shouldBe newValue.failure()
+                    sut.mapErrorAsync { newValue } shouldBe newValue.failure()
                 }
             }
         }
@@ -78,13 +78,13 @@ class TransformationsTest : DescribeSpec({
 
             it("does not invoke the failure mapper") {
                 checkAll(successGen()) { sut ->
-                    sut.mapBoth({ IllegalAccessError() }, { it })
+                    sut.mapBothAsync({ IllegalAccessError() }, { it })
                 }
             }
 
             it("should map the success") {
                 checkAll(successGen(), Arb.string()) { sut, newValue ->
-                    sut.mapBoth({ IllegalAccessError() }, { newValue }) shouldBe newValue.success()
+                    sut.mapBothAsync({ IllegalAccessError() }, { newValue }) shouldBe newValue.success()
                 }
             }
         }
@@ -93,13 +93,13 @@ class TransformationsTest : DescribeSpec({
 
             it("does not invoke the success mapper") {
                 checkAll(failureGen()) { sut ->
-                    sut.mapBoth({ it }, { IllegalAccessError() })
+                    sut.mapBothAsync({ it }, { IllegalAccessError() })
                 }
             }
 
             it("should return a new failure with the mapped result") {
                 checkAll(failureGen(), Arb.string()) { sut, newValue ->
-                    sut.mapBoth({ newValue }, { IllegalAccessError() }) shouldBe newValue.failure()
+                    sut.mapBothAsync({ newValue }, { IllegalAccessError() }) shouldBe newValue.failure()
                 }
             }
         }
@@ -107,24 +107,24 @@ class TransformationsTest : DescribeSpec({
         describe("RemoteData is loading") {
 
             it("does not invoke either of the mappers") {
-                RemoteData.Loading.mapBoth({ IllegalAccessError() }, { IllegalAccessError() })
+                RemoteData.Loading.mapBothAsync({ IllegalAccessError() }, { IllegalAccessError() })
             }
 
             it("should return the same state") {
                 val sut = RemoteData.Loading
-                sut.mapBoth({ IllegalAccessError() }, { IllegalAccessError() }) shouldBe sut
+                sut.mapBothAsync({ IllegalAccessError() }, { IllegalAccessError() }) shouldBe sut
             }
         }
 
         describe("RemoteData is not asked") {
 
             it("does not invoke either of the mappers") {
-                RemoteData.NotAsked.mapBoth({ IllegalAccessError() }, { IllegalAccessError() })
+                RemoteData.NotAsked.mapBothAsync({ IllegalAccessError() }, { IllegalAccessError() })
             }
 
             it("should return the same state") {
                 val sut = RemoteData.NotAsked
-                sut.mapBoth({ IllegalAccessError() }, { IllegalAccessError() }) shouldBe sut
+                sut.mapBothAsync({ IllegalAccessError() }, { IllegalAccessError() }) shouldBe sut
             }
         }
     }
@@ -136,7 +136,7 @@ class TransformationsTest : DescribeSpec({
 
             it("returns the RemoteData from the flatMap function") {
                 checkAll(successGen(), nextValueGen) { sut, next ->
-                    sut.flatMap { next } shouldBe next
+                    sut.flatMapAsync { next } shouldBe next
                 }
             }
         }
@@ -148,13 +148,13 @@ class TransformationsTest : DescribeSpec({
 
             it("does not invoke the flatMap function") {
                 checkAll(nonSuccessGen()) { sut ->
-                    sut.flatMap(flatMapper)
+                    sut.flatMapAsync(flatMapper)
                 }
             }
 
             it("returns the same state") {
                 checkAll(nonSuccessGen()) { sut ->
-                    sut.flatMap(flatMapper) shouldBe sut
+                    sut.flatMapAsync(flatMapper) shouldBe sut
                 }
             }
         }
@@ -170,7 +170,7 @@ class TransformationsTest : DescribeSpec({
             it("applies the function from the first object to the second for a result") {
                 checkAll(Arb.int()) { a ->
                     val expected = (a + 1).success()
-                    dataMapper andMap a.success() shouldBe expected
+                    dataMapper andMapAsync a.success() shouldBe expected
                 }
             }
         }
@@ -179,7 +179,7 @@ class TransformationsTest : DescribeSpec({
 
             it("keeps the first state") {
                 checkAll(mappingGenNonSuccess, nonSuccessGen()) { a, b ->
-                    a andMap b shouldBe a
+                    a andMapAsync b shouldBe a
                 }
             }
         }
@@ -188,7 +188,7 @@ class TransformationsTest : DescribeSpec({
 
             it("keeps the second state") {
                 checkAll(nonSuccessGen()) { a ->
-                    dataMapper andMap a shouldBe a
+                    dataMapper andMapAsync a shouldBe a
                 }
             }
         }
@@ -197,7 +197,7 @@ class TransformationsTest : DescribeSpec({
 
             it("keeps the first state") {
                 checkAll(mappingGenNonSuccess, successGen()) { a, b ->
-                    a andMap b shouldBe a
+                    a andMapAsync b shouldBe a
                 }
             }
         }

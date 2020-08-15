@@ -15,13 +15,9 @@ test {
 }
 
 dependencies {
-
     compile Deps.kotlin
 
-    testCompile Deps.Kotest.assertions
-    testCompile Deps.Kotest.console
-    testCompile Deps.Kotest.property
-    testCompile Deps.Kotest.runner
+    testCompile project(":test-util")
 }
 
 ext {
