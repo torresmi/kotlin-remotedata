@@ -15,7 +15,7 @@ class UnwrapTest : DescribeSpec({
 
             it("provides the success value") {
                 checkAll(Arb.int()) { value ->
-                    value.success().get() shouldBe value
+                    value.success().getOrNull() shouldBe value
                 }
             }
         }
@@ -24,7 +24,7 @@ class UnwrapTest : DescribeSpec({
 
             it("returns null") {
                 checkAll(nonSuccessGen()) { sut ->
-                    sut.get() shouldBe null
+                    sut.getOrNull() shouldBe null
                 }
             }
         }
