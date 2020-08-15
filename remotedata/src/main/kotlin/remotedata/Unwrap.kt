@@ -19,7 +19,7 @@ fun <A : Any, E : Any> RemoteData<E, A>.getOrElse(default: A): A = getOrElse { d
 /**
  * Return either the [RemoteData.Success] data or a provided [default].
  */
-fun <A : Any, E : Any> RemoteData<E, A>.getOrElse(default: () -> A): A = when (this) {
+inline fun <A : Any, E : Any> RemoteData<E, A>.getOrElse(default: () -> A): A = when (this) {
     is RemoteData.Success -> data
     else -> default()
 }
