@@ -1,4 +1,4 @@
-package remotedata
+package remotedata.generation
 
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.arb

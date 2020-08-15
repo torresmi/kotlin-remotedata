@@ -1,1 +1,3 @@
-include ':remotedata'
+include ':remotedata',
+        ':remotedata-coroutines',
+        'test-util'
