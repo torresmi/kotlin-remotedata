@@ -28,45 +28,45 @@ fun <A : Any, B : Any, C : Any, E : Any> RemoteData<E, A>.append(
         }
 
 /**
- * Combine with [other] using [f] if both are [RemoteData.Success].
+ * Combine with [other] using [merge] if both are [RemoteData.Success].
  * Any other state other than [RemoteData.Success] with be returned, with left precedence.
  */
 inline fun <A : Any, B : Any, C : Any, E : Any> RemoteData<E, A>.mergeWith(
     other: RemoteData<E, B>,
-    crossinline f: (A, B) -> C
+    crossinline merge: (A, B) -> C
 ): RemoteData<E, C> =
     append(other)
         .map { (a, b) ->
-            f(a, b)
+            merge(a, b)
         }
 
 /**
- * Combine with 2 other [RemoteData] values with [f] if all are [RemoteData.Success]
+ * Combine with 2 other [RemoteData] values with [merge] if all are [RemoteData.Success]
  * Any other state other than [RemoteData.Success] with be returned, with left precedence.
  */
 inline fun <A : Any, B : Any, C : Any, D : Any, E : Any> RemoteData<E, A>.mergeWith(
     other1: RemoteData<E, B>,
     other2: RemoteData<E, C>,
-    crossinline f: (A, B, C) -> D
+    crossinline merge: (A, B, C) -> D
 ): RemoteData<E, D> =
     append(other1, other2)
         .map { (a, b, c) ->
-            f(a, b, c)
+            merge(a, b, c)
         }
 
 /**
- * Combine with 3 other [RemoteData] values with [f] if all are [RemoteData.Success].
+ * Combine with 3 other [RemoteData] values with [merge] if all are [RemoteData.Success].
  * Any other state other than [RemoteData.Success] with be returned, with left precedence.
  */
 inline fun <A : Any, B : Any, C : Any, D : Any, E : Any, F : Any> RemoteData<F, A>.mergeWith(
     other1: RemoteData<F, B>,
     other2: RemoteData<F, C>,
     other3: RemoteData<F, D>,
-    crossinline f: (A, B, C, D) -> E
+    crossinline merge: (A, B, C, D) -> E
 ): RemoteData<F, E> =
     append(other1, other2)
         .flatMap { (a, b, c) ->
             other3.map { d ->
-                f(a, b, c, d)
+                merge(a, b, c, d)
             }
         }
