@@ -4,7 +4,7 @@ package remotedata
  * Combines all the [RemoteData] data values into a [Pair] if both are successful.
  * Any state other than [RemoteData.Success] with be returned, with left precedence.
  */
-fun <A : Any, B : Any, E : Any> RemoteData<E, A>.append(
+fun <A, B, E> RemoteData<E, A>.append(
     other: RemoteData<E, B>
 ): RemoteData<E, Pair<A, B>> = flatMap { a ->
     other.map { b ->
@@ -16,7 +16,7 @@ fun <A : Any, B : Any, E : Any> RemoteData<E, A>.append(
  * Combines all the [RemoteData] data values into a [Triple] if all are successful.
  * Any state other than [RemoteData.Success] with be returned, with left precedence.
  */
-fun <A : Any, B : Any, C : Any, E : Any> RemoteData<E, A>.append(
+fun <A, B, C, E> RemoteData<E, A>.append(
     other1: RemoteData<E, B>,
     other2: RemoteData<E, C>
 ): RemoteData<E, Triple<A, B, C>> =
@@ -31,7 +31,7 @@ fun <A : Any, B : Any, C : Any, E : Any> RemoteData<E, A>.append(
  * Combine with [other] using [merge] if both are [RemoteData.Success].
  * Any other state other than [RemoteData.Success] with be returned, with left precedence.
  */
-inline fun <A : Any, B : Any, C : Any, E : Any> RemoteData<E, A>.mergeWith(
+inline fun <A, B, C, E> RemoteData<E, A>.mergeWith(
     other: RemoteData<E, B>,
     crossinline merge: (A, B) -> C
 ): RemoteData<E, C> =
@@ -44,7 +44,7 @@ inline fun <A : Any, B : Any, C : Any, E : Any> RemoteData<E, A>.mergeWith(
  * Combine with 2 other [RemoteData] values with [merge] if all are [RemoteData.Success]
  * Any other state other than [RemoteData.Success] with be returned, with left precedence.
  */
-inline fun <A : Any, B : Any, C : Any, D : Any, E : Any> RemoteData<E, A>.mergeWith(
+inline fun <A, B, C, D, E> RemoteData<E, A>.mergeWith(
     other1: RemoteData<E, B>,
     other2: RemoteData<E, C>,
     crossinline merge: (A, B, C) -> D
@@ -58,7 +58,7 @@ inline fun <A : Any, B : Any, C : Any, D : Any, E : Any> RemoteData<E, A>.mergeW
  * Combine with 3 other [RemoteData] values with [merge] if all are [RemoteData.Success].
  * Any other state other than [RemoteData.Success] with be returned, with left precedence.
  */
-inline fun <A : Any, B : Any, C : Any, D : Any, E : Any, F : Any> RemoteData<F, A>.mergeWith(
+inline fun <A, B, C, D, E, F> RemoteData<F, A>.mergeWith(
     other1: RemoteData<F, B>,
     other2: RemoteData<F, C>,
     other3: RemoteData<F, D>,

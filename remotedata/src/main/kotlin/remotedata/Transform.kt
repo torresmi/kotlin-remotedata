@@ -3,13 +3,13 @@ package remotedata
 /**
  * Transform the data of a [RemoteData] value with [transform]
  */
-inline fun <A : Any, B : Any, E : Any> RemoteData<E, A>.map(transform: (A) -> B): RemoteData<E, B> =
+inline fun <A, B, E> RemoteData<E, A>.map(transform: (A) -> B): RemoteData<E, B> =
     mapBoth({ it }, transform)
 
 /**
  * Transform the error of a [RemoteData] value with [transform].
  */
-inline fun <A : Any, E : Any, F : Any> RemoteData<E, A>.mapError(
+inline fun <A, E, F> RemoteData<E, A>.mapError(
     transform: (E) -> F
 ): RemoteData<F, A> = mapBoth(transform, { it })
 
@@ -17,7 +17,7 @@ inline fun <A : Any, E : Any, F : Any> RemoteData<E, A>.mapError(
  * Apply both [failure] and [success] mapping functions to this [RemoteData].
  * Combines [map] and [mapError] into one.
  */
-inline fun <A : Any, B : Any, C : Any, E : Any> RemoteData<E, A>.mapBoth(
+inline fun <A, B, C, E> RemoteData<E, A>.mapBoth(
     failure: (E) -> C,
     success: (A) -> B
 ): RemoteData<C, B> = when (this) {
@@ -31,7 +31,7 @@ inline fun <A : Any, B : Any, C : Any, E : Any> RemoteData<E, A>.mapBoth(
  * Applies the function from the [RemoteData.Success] data value to [other] data value.
  * Any other state other than [RemoteData.Success] with be returned, with left precedence.
  */
-infix fun <A : Any, B : Any, F : Any> RemoteData<F, (A) -> B>.andMap(
+infix fun <A, B, F> RemoteData<F, (A) -> B>.andMap(
     other: RemoteData<F, A>
 ): RemoteData<F, B> = when (this) {
     is RemoteData.NotAsked -> this
@@ -44,7 +44,7 @@ infix fun <A : Any, B : Any, F : Any> RemoteData<F, (A) -> B>.andMap(
  * Chain the current [RemoteData] with a [transform] that returns the next [RemoteData].
  * Only continues the chain if it is currently a [RemoteData.Success].
  */
-inline fun <A : Any, B : Any, E : Any> RemoteData<E, A>.flatMap(
+inline fun <A, B, E> RemoteData<E, A>.flatMap(
     transform: (A) -> RemoteData<E, B>
 ): RemoteData<E, B> = when (this) {
     is RemoteData.NotAsked -> this
