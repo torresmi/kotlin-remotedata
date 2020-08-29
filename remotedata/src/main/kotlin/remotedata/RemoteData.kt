@@ -7,7 +7,7 @@ package remotedata
  * @param E the type of error possible.
  * @param A the type of data to attempt to load.
  */
-sealed class RemoteData<out E : Any, out A : Any> {
+sealed class RemoteData<out E, out A> {
 
     /**
      * The [RemoteData] operation has not started.
@@ -26,12 +26,12 @@ sealed class RemoteData<out E : Any, out A : Any> {
     /**
      * The [RemoteData] operation loaded successfully with [data].
      */
-    data class Success<out E : Any, out A : Any>(val data: A) : RemoteData<E, A>()
+    data class Success<out E, out A>(val data: A) : RemoteData<E, A>()
 
     /**
      * The [RemoteData] operation failed with [error].
      */
-    data class Failure<out E : Any, out A : Any>(val error: E) : RemoteData<E, A>()
+    data class Failure<out E, out A>(val error: E) : RemoteData<E, A>()
 
     fun isNotAsked(): Boolean = this is NotAsked
 
@@ -46,12 +46,12 @@ sealed class RemoteData<out E : Any, out A : Any> {
         /**
          * Helper to create a [RemoteData.Success] class with [data].
          */
-        fun <A : Any> succeed(data: A): RemoteData<Nothing, A> = RemoteData.Success(data)
+        fun <A> succeed(data: A): RemoteData<Nothing, A> = RemoteData.Success(data)
 
         /**
          * Helper to create a [RemoteData.Failure] class with [error].
          */
-        fun <E : Any> fail(error: E): RemoteData<E, Nothing> = RemoteData.Failure(error)
+        fun <E> fail(error: E): RemoteData<E, Nothing> = RemoteData.Failure(error)
     }
 }
 
@@ -59,9 +59,9 @@ sealed class RemoteData<out E : Any, out A : Any> {
 /**
  * Convert this type into a [RemoteData.Success].
  */
-fun <A : Any> A.success(): RemoteData<Nothing, A> = RemoteData.Success(this)
+fun <A> A.success(): RemoteData<Nothing, A> = RemoteData.Success(this)
 
 /**
  * Convert this type into a [RemoteData.Failure].
  */
-fun <E : Any> E.failure(): RemoteData<E, Nothing> = RemoteData.Failure(this)
+fun <E> E.failure(): RemoteData<E, Nothing> = RemoteData.Failure(this)

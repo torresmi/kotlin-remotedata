@@ -6,7 +6,7 @@ package remotedata
  * This should be used with caution, as [getOrElse] or unwrapping with a 'when' statement help
  * handle all other cases better than a nullable type.
  */
-fun <A : Any, E : Any> RemoteData<E, A>.getOrNull(): A? = when (this) {
+fun <A, E> RemoteData<E, A>.getOrNull(): A? = when (this) {
     is RemoteData.Success -> data
     else -> null
 }
@@ -14,12 +14,12 @@ fun <A : Any, E : Any> RemoteData<E, A>.getOrNull(): A? = when (this) {
 /**
  * Return either the [RemoteData.Success] data or a provided [default].
  */
-fun <A : Any, E : Any> RemoteData<E, A>.getOrElse(default: A): A = getOrNull() ?: default
+fun <A, E> RemoteData<E, A>.getOrElse(default: A): A = getOrNull() ?: default
 
 /**
  * Return either the [RemoteData.Success] data or a provided [default].
  */
-inline fun <A : Any, E : Any> RemoteData<E, A>.getOrElse(default: () -> A): A = when (this) {
+inline fun <A, E> RemoteData<E, A>.getOrElse(default: () -> A): A = when (this) {
     is RemoteData.Success -> data
     else -> default()
 }
