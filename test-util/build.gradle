@@ -7,7 +7,6 @@ dependencies {
     compile Deps.kotlin
 
     api Deps.Kotest.assertions
-    api Deps.Kotest.console
     api Deps.Kotest.property
     api Deps.Kotest.runner
 }
