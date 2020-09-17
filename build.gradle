@@ -30,4 +30,5 @@ subprojects {
     }
 
     apply from: "$rootDir/scripts/jacoco.gradle"
+    apply plugin: 'com.github.ben-manes.versions'
 }
