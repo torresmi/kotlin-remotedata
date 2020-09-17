@@ -30,5 +30,5 @@ object Versions {
     val kotest = "4.2.4"
     val kotlin = "1.4.10"
     val maven = "1.4.1"
-    val versions = "0.29.0"
+    val versions = "0.33.0"
 }
