@@ -24,11 +24,11 @@ abstract class Group(val group: String) {
 private fun dependency(path: String, version: String) = "$path:$version"
 
 object Versions {
-    val bintray = "1.7.3"
+    val bintray = "1.8.5"
     val dokka = "0.9.15"
     val jacoco = "0.8.5"
     val kotest = "4.2.4"
     val kotlin = "1.4.10"
     val maven = "1.4.1"
-    val versions = "0.29.0"
+    val versions = "0.33.0"
 }
