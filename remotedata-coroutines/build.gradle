@@ -1,6 +1,6 @@
 import dependencies.Deps
 
-apply plugin: 'kotlin'
+apply plugin: 'org.jetbrains.kotlin.multiplatform'
 apply plugin: 'org.jetbrains.dokka'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
@@ -10,14 +10,41 @@ dokka {
     outputDirectory = "$buildDir/javadoc"
 }
 
-test {
-    useJUnitPlatform()
+kotlin {
+    jvm()
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation project(":remotedata")
+                implementation Deps.Coroutines.core
+                implementation Deps.Coroutines.test
+            }
+        }
+        commonTest {
+            dependencies {
+                implementation Deps.Kotest.assertions
+                implementation Deps.Spek.dslMetadata
+            }
+        }
+        jvmMain {
+            dependencies {
+            }
+        }
+        jvmTest {
+            dependencies {
+                implementation project(":test-util")
+                implementation Deps.Spek.dslJvm
+
+                runtimeOnly Deps.Kotlin.reflect
+                runtimeOnly Deps.Spek.junit5
+
+            }
+        }
+    }
 }
 
-dependencies {
-    compile project(":remotedata")
-    compile Deps.kotlin
-
-    testCompile project(":test-util")
+jvmTest {
+    useJUnitPlatform {
+        includeEngines 'spek2', 'kotest'
+    }
 }
-

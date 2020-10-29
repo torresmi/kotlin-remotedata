@@ -1,10 +1,10 @@
 package remotedata.generation
 
+import com.github.torresmi.remotedata.RemoteData
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.choice
 import io.kotest.property.arbitrary.map
 import io.kotest.property.arbitrary.next
-import remotedata.RemoteData
 
 fun <E : Any, A : Any> Arb.Companion.remoteData(failureGen: Arb<E>, successGen: Arb<A>) = Arb.choice(
     successGen.map { RemoteData.succeed(it) },
