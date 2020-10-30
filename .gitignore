@@ -84,6 +84,7 @@ obj/
 .idea/jarRepositories.xml
 .idea/caches/
 .idea/codeStyles/
+.idea/artifacts/
 
 # OS-specific files
 .DS_Store

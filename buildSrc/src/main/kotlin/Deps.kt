@@ -23,6 +23,7 @@ object Deps {
     }
 }
 
+// Can't use in kts files yet https://github.com/gradle/gradle/issues/9270
 object Plugins {
     val bintray = dependency("com.jfrog.bintray.gradle:gradle-bintray-plugin", Versions.bintray)
     val dokka = dependency("org.jetbrains.dokka:dokka-gradle-plugin", Versions.dokka)
@@ -40,7 +41,7 @@ private fun dependency(path: String, version: String) = "$path:$version"
 object Versions {
     val bintray = "1.8.5"
     val coroutines = "1.4.0"
-    val dokka = "0.9.15"
+    val dokka = "1.4.10.2"
     val jacoco = "0.8.5"
     val kotest = "4.2.4"
     val kotlin = "1.4.10"
