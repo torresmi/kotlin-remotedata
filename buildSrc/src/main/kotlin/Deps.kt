@@ -23,6 +23,7 @@ object Deps {
     }
 }
 
+// Can't use in kts files yet https://github.com/gradle/gradle/issues/9270
 object Plugins {
     val bintray = dependency("com.jfrog.bintray.gradle:gradle-bintray-plugin", Versions.bintray)
     val dokka = dependency("org.jetbrains.dokka:dokka-gradle-plugin", Versions.dokka)
