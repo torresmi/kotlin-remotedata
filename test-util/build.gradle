@@ -4,8 +4,8 @@ apply plugin: 'kotlin'
 
 dependencies {
     compile project(":remotedata")
-    compile Deps.kotlin
 
+    api Deps.Coroutines.test
     api Deps.Kotest.assertions
     api Deps.Kotest.property
     api Deps.Kotest.runner

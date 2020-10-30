@@ -1,3 +1,5 @@
 include ':remotedata',
         ':remotedata-coroutines',
-        'test-util'
+        ':test-util'
+
+enableFeaturePreview("GRADLE_METADATA")
