@@ -21,14 +21,16 @@ subprojects {
         from("$rootDir/scripts/jacoco.gradle")
     }
 
-    buildscript {
-        repositories {
-            jcenter()
-        }
-    }
-
     repositories {
         jcenter()
         maven { url = uri("http://dl.bintray.com/jetbrains/spek") }
     }
 }
+
+// Dokka
+
+repositories {
+    jcenter()
+}
+
+apply(plugin="org.jetbrains.dokka")
