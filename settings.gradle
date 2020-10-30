@@ -1,5 +1,0 @@
-include ':remotedata',
-        ':remotedata-coroutines',
-        ':test-util'
-
-enableFeaturePreview("GRADLE_METADATA")
