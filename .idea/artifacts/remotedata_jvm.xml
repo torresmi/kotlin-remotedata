@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="remotedata-jvm">
-    <output-path>$PROJECT_DIR$/remotedata/build/libs</output-path>
-    <root id="archive" name="remotedata-jvm.jar">
-      <element id="module-output" name="kotlin-remotedata.remotedata.jvmMain" />
-    </root>
-  </artifact>
-</component>

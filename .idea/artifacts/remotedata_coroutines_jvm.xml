@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="remotedata-coroutines-jvm">
-    <output-path>$PROJECT_DIR$/remotedata-coroutines/build/libs</output-path>
-    <root id="archive" name="remotedata-coroutines-jvm.jar">
-      <element id="module-output" name="kotlin-remotedata.remotedata-coroutines.jvmMain" />
-    </root>
-  </artifact>
-</component>
