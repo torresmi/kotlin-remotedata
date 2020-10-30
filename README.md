@@ -1,3 +1,5 @@
+![CI](https://github.com/torresmi/kotlin-remotedata/workflows/CI/badge.svg)
+
 # RemoteData
 Data type that represents the possible states when fetching data from a remote source. Kotlin port of https://github.com/krisajenkins/remotedata
 
