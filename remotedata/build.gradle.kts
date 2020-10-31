@@ -37,7 +37,7 @@ kotlin {
         watchos()
         tvos()
         macosX64()
-        linuxArm64()
+        linuxX64()
         mingwX64()
     }
 }
