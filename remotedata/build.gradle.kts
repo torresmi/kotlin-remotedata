@@ -9,6 +9,7 @@ plugins {
 
 kotlin {
     jvm()
+
     sourceSets {
         val commonMain by getting {
         }
@@ -29,6 +30,13 @@ kotlin {
                 runtimeOnly(Deps.Spek.junit5)
             }
         }
+    }
+
+    targets {
+        ios()
+        watchos()
+        tvos()
+        macosX64()
     }
 }
 
