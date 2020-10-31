@@ -19,6 +19,9 @@ object Deps {
     object Spek : Group("org.spekframework.spek2") {
         val dslMetadata = withArtifact("spek-dsl-metadata", Versions.spek)
         val dslJvm = withArtifact("spek-dsl-jvm", Versions.spek)
+        val dslLinux = withArtifact("spek-dsl-native-linux", Versions.spek)
+        val dslMacos = withArtifact("spek-dsl-native-macos", Versions.spek)
+        val dslWindows = withArtifact("spek-dsl-native-windows", Versions.spek)
         val junit5 = withArtifact("spek-runner-junit5", Versions.spek)
     }
 }

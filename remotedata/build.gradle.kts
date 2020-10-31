@@ -18,6 +18,9 @@ kotlin {
             dependencies {
                 implementation(Deps.Kotest.assertions)
                 implementation(Deps.Spek.dslMetadata)
+                implementation(Deps.Spek.dslLinux)
+                implementation(Deps.Spek.dslMacos)
+                implementation(Deps.Spek.dslWindows)
             }
         }
 
@@ -33,9 +36,9 @@ kotlin {
     }
 
     targets {
-        ios()
-        watchos()
-        tvos()
+        iosArm64()
+        watchosArm64()
+        tvosArm64()
         macosX64()
         linuxX64()
         mingwX64()
