@@ -1,8 +1,6 @@
 package com.github.torresmi.remotedata.property
 
 import com.github.torresmi.remotedata.RemoteData
-import com.github.torresmi.remotedata.failure
-import com.github.torresmi.remotedata.success
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
@@ -14,27 +12,15 @@ class RemoteDataTest : DescribeSpec({
     
     describe("construction") {
 
-        it("can be created with data using success extension") {
-            checkAll(Arb.int()) { data ->
-                data.success() shouldBe RemoteData.Success<Nothing, Int>(data)
-            }
-        }
-
         it("can be created with data using succeed creator") {
             checkAll(Arb.int()) { data ->
-                RemoteData.succeed(data) shouldBe RemoteData.Success<Nothing, Int>(data)
-            }
-        }
-
-        it("can be created with error using failure extension") {
-            checkAll(Arb.int()) { error ->
-                error.failure() shouldBe RemoteData.Failure<Int, Nothing>(error)
+                RemoteData.succeed(data) shouldBe RemoteData.Success(data)
             }
         }
 
         it("can be created with error data fail creator") {
             checkAll(Arb.int()) { error ->
-                RemoteData.fail(error) shouldBe RemoteData.Failure<Int, Nothing>(error)
+                RemoteData.fail(error) shouldBe RemoteData.Failure(error)
             }
         }
     }
@@ -105,6 +91,6 @@ class RemoteDataTest : DescribeSpec({
     }
 })
 
-private fun successGen() = Arb.int().map { it.success() }
+private fun successGen() = Arb.int().map { RemoteData.succeed(it) }
 
-private fun failureGen() = Arb.int().map { it.failure() }
+private fun failureGen() = Arb.int().map { RemoteData.fail(it) }

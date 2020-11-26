@@ -1,10 +1,12 @@
 package com.github.torresmi.remotedata.coroutines.property
 
 import com.github.torresmi.remotedata.RemoteData
-import com.github.torresmi.remotedata.coroutines.*
-import com.github.torresmi.remotedata.failure
+import com.github.torresmi.remotedata.coroutines.andMapAsync
+import com.github.torresmi.remotedata.coroutines.flatMapAsync
+import com.github.torresmi.remotedata.coroutines.mapAsync
+import com.github.torresmi.remotedata.coroutines.mapBothAsync
+import com.github.torresmi.remotedata.coroutines.mapErrorAsync
 import com.github.torresmi.remotedata.map
-import com.github.torresmi.remotedata.success
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
@@ -23,7 +25,7 @@ class TransformTest : DescribeSpec({
 
             it("should be a success with the value returned from mapping") {
                 checkAll(successGen(), Arb.string()) { sut, newValue ->
-                    sut.mapAsync { newValue } shouldBe newValue.success()
+                    sut.mapAsync { newValue } shouldBe RemoteData.Success(newValue)
                 }
             }
         }
@@ -67,7 +69,7 @@ class TransformTest : DescribeSpec({
 
             it("should be a failure with the value returned from the mapper") {
                 checkAll(failureGen(), Arb.string()) { sut, newValue ->
-                    sut.mapErrorAsync { newValue } shouldBe newValue.failure()
+                    sut.mapErrorAsync { newValue } shouldBe RemoteData.Failure(newValue)
                 }
             }
         }
@@ -85,7 +87,7 @@ class TransformTest : DescribeSpec({
 
             it("should map the success") {
                 checkAll(successGen(), Arb.string()) { sut, newValue ->
-                    sut.mapBothAsync({ IllegalAccessError() }, { newValue }) shouldBe newValue.success()
+                    sut.mapBothAsync({ IllegalAccessError() }, { newValue }) shouldBe RemoteData.Success(newValue)
                 }
             }
         }
@@ -100,7 +102,7 @@ class TransformTest : DescribeSpec({
 
             it("should return a new failure with the mapped result") {
                 checkAll(failureGen(), Arb.string()) { sut, newValue ->
-                    sut.mapBothAsync({ newValue }, { IllegalAccessError() }) shouldBe newValue.failure()
+                    sut.mapBothAsync({ newValue }, { IllegalAccessError() }) shouldBe RemoteData.Failure(newValue)
                 }
             }
         }
@@ -163,15 +165,15 @@ class TransformTest : DescribeSpec({
 
     describe("andMapping") {
         val mapper: suspend (Int) -> Int = { it + 1 }
-        val dataMapper = mapper.success()
+        val dataMapper = RemoteData.succeed(mapper)
         val mappingGenNonSuccess = nonSuccessGen().map { it.map { mapper } }
 
         describe("both RemoteData objects are successful") {
 
             it("applies the function from the first object to the second for a result") {
                 checkAll(Arb.int()) { a ->
-                    val expected = (a + 1).success()
-                    dataMapper andMapAsync a.success() shouldBe expected
+                    val expected = RemoteData.succeed(a + 1)
+                    dataMapper andMapAsync RemoteData.Success(a) shouldBe expected
                 }
             }
         }
@@ -205,8 +207,8 @@ class TransformTest : DescribeSpec({
     }
 })
 
-private fun successGen() = Arb.int().map { it.success() }
+private fun successGen() = Arb.int().map { RemoteData.succeed(it) }
 
-private fun failureGen() = Arb.int().map { it.failure() }
+private fun failureGen() = Arb.int().map { RemoteData.fail(it) }
 
 private fun nonSuccessGen() = Arb.remoteDataNonSuccess(Arb.int())

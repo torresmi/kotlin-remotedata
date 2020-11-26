@@ -1,7 +1,7 @@
 package com.github.torresmi.remotedata.property
 
+import com.github.torresmi.remotedata.RemoteData
 import com.github.torresmi.remotedata.append
-import com.github.torresmi.remotedata.success
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
@@ -18,15 +18,15 @@ class AppendTest : DescribeSpec({
 
             it("create a pair of both success values") {
                 checkAll(Arb.int(), Arb.int()) { a, b ->
-                    val expected = (a to b).success()
-                    a.success().append(b.success()) shouldBe expected
+                    val expected = RemoteData.succeed(a to b)
+                    RemoteData.succeed(a).append(RemoteData.succeed(b)) shouldBe expected
                 }
             }
 
             it("create a triple of all success values") {
                 checkAll(Arb.int(), Arb.int(), Arb.int()) { a, b, c ->
-                    val expected = Triple(a, b, c).success()
-                    a.success().append(b.success(), c.success()) shouldBe expected
+                    val expected = RemoteData.succeed(Triple(a, b, c))
+                    RemoteData.succeed(a).append(RemoteData.succeed(b), RemoteData.succeed(c)) shouldBe expected
                 }
             }
         }
@@ -89,7 +89,6 @@ class AppendTest : DescribeSpec({
     }
 })
 
-private fun successGen() = Arb.int().map { it.success() }
+private fun successGen() = Arb.int().map { RemoteData.succeed(it) }
 
 private fun nonSuccessGen() = Arb.remoteDataNonSuccess(Arb.int())
-

@@ -1,7 +1,7 @@
 package com.github.torresmi.remotedata.property
 
+import com.github.torresmi.remotedata.RemoteData
 import com.github.torresmi.remotedata.mergeWith
-import com.github.torresmi.remotedata.success
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
@@ -19,8 +19,8 @@ class CombineTest : DescribeSpec({
 
             it("applies the map function") {
                 checkAll(Arb.int(), Arb.int()) { a, b ->
-                    val expected = mapper(a, b).success()
-                    a.success().mergeWith(b.success(), mapper) shouldBe expected
+                    val expected = RemoteData.succeed(mapper(a, b))
+                    RemoteData.succeed(a).mergeWith(RemoteData.succeed(b), mapper) shouldBe expected
                 }
             }
         }
@@ -54,6 +54,6 @@ class CombineTest : DescribeSpec({
     }
 })
 
-private fun successGen() = Arb.int().map { it.success() }
+private fun successGen() = Arb.int().map { RemoteData.succeed(it) }
 
 private fun nonSuccessGen() = Arb.remoteDataNonSuccess(Arb.int())

@@ -54,14 +54,3 @@ sealed class RemoteData<out E, out A> {
         fun <E> fail(error: E): RemoteData<E, Nothing> = Failure(error)
     }
 }
-
-
-/**
- * Convert this type into a [RemoteData.Success].
- */
-fun <A> A.success(): RemoteData<Nothing, A> = RemoteData.Success(this)
-
-/**
- * Convert this type into a [RemoteData.Failure].
- */
-fun <E> E.failure(): RemoteData<E, Nothing> = RemoteData.Failure(this)
