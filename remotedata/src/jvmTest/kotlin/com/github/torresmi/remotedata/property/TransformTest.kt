@@ -19,7 +19,7 @@ class TransformationsTest : DescribeSpec({
 
             it("should be a success with the value returned from mapping") {
                 checkAll(successGen(), Arb.string()) { sut, newValue ->
-                    sut.map { newValue } shouldBe newValue.success()
+                    sut.map { newValue } shouldBe RemoteData.succeed(newValue)
                 }
             }
         }
@@ -63,7 +63,7 @@ class TransformationsTest : DescribeSpec({
 
             it("should be a failure with the value returned from the mapper") {
                 checkAll(failureGen(), Arb.string()) { sut, newValue ->
-                    sut.mapError { newValue } shouldBe newValue.failure()
+                    sut.mapError { newValue } shouldBe RemoteData.Failure(newValue)
                 }
             }
         }
@@ -81,7 +81,7 @@ class TransformationsTest : DescribeSpec({
 
             it("should map the success") {
                 checkAll(successGen(), Arb.string()) { sut, newValue ->
-                    sut.mapBoth({ IllegalAccessError() }, { newValue }) shouldBe newValue.success()
+                    sut.mapBoth({ IllegalAccessError() }, { newValue }) shouldBe RemoteData.Success(newValue)
                 }
             }
         }
@@ -96,7 +96,7 @@ class TransformationsTest : DescribeSpec({
 
             it("should return a new failure with the mapped result") {
                 checkAll(failureGen(), Arb.string()) { sut, newValue ->
-                    sut.mapBoth({ newValue }, { IllegalAccessError() }) shouldBe newValue.failure()
+                    sut.mapBoth({ newValue }, { IllegalAccessError() }) shouldBe RemoteData.Failure(newValue)
                 }
             }
         }
@@ -159,15 +159,15 @@ class TransformationsTest : DescribeSpec({
 
     describe("andMapping") {
         val mapper: (Int) -> Int = { it + 1 }
-        val dataMapper = mapper.success()
+        val dataMapper = RemoteData.succeed(mapper)
         val mappingGenNonSuccess = nonSuccessGen().map { it.map { mapper } }
 
         describe("both RemoteData objects are successful") {
 
             it("applies the function from the first object to the second for a result") {
                 checkAll(Arb.int()) { a ->
-                    val expected = (a + 1).success()
-                    dataMapper andMap a.success() shouldBe expected
+                    val expected = RemoteData.succeed(a + 1)
+                    dataMapper andMap RemoteData.Success(a) shouldBe expected
                 }
             }
         }
@@ -201,8 +201,8 @@ class TransformationsTest : DescribeSpec({
     }
 })
 
-private fun successGen() = Arb.int().map { it.success() }
+private fun successGen() = Arb.int().map { RemoteData.succeed(it) }
 
-private fun failureGen() = Arb.int().map { it.failure() }
+private fun failureGen() = Arb.int().map { RemoteData.fail(it) }
 
 private fun nonSuccessGen() = Arb.remoteDataNonSuccess(Arb.int())

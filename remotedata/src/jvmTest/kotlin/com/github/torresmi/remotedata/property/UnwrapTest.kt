@@ -1,8 +1,8 @@
 package com.github.torresmi.remotedata.property
 
+import com.github.torresmi.remotedata.RemoteData
 import com.github.torresmi.remotedata.getOrElse
 import com.github.torresmi.remotedata.getOrNull
-import com.github.torresmi.remotedata.success
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
@@ -18,7 +18,7 @@ class UnwrapTest : DescribeSpec({
 
             it("provides the success value") {
                 checkAll(Arb.int()) { value ->
-                    value.success().getOrNull() shouldBe value
+                    RemoteData.succeed(value).getOrNull() shouldBe value
                 }
             }
         }
@@ -39,7 +39,7 @@ class UnwrapTest : DescribeSpec({
 
             it("provides the success value") {
                 checkAll(Arb.int(), Arb.int()) { value, default ->
-                    val data = value.success()
+                    val data = RemoteData.succeed(value)
 
                     data.getOrElse(default) shouldBe value
                     data.getOrElse { default } shouldBe value
@@ -48,7 +48,7 @@ class UnwrapTest : DescribeSpec({
 
             it("does not invoke else function") {
                 checkAll(Arb.int()) { value ->
-                    value.success().getOrElse { throw IllegalAccessError() }
+                    RemoteData.succeed(value).getOrElse { throw IllegalAccessError() }
                 }
             }
         }

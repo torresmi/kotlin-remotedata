@@ -10,16 +10,8 @@ object RemoteDataTest : Spek({
         val data = 1
         val error = 0
 
-        it("can be created with data using success extension") {
-            data.success() shouldBe RemoteData.Success(data)
-        }
-
         it("can be created with data using succeed creator") {
             RemoteData.succeed(data) shouldBe RemoteData.Success(data)
-        }
-
-        it("can be created with error using failure extension") {
-            error.failure() shouldBe RemoteData.Failure(error)
         }
 
         it("can be created with error data fail creator") {
