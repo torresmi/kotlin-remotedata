@@ -21,17 +21,14 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(Deps.Kotest.assertions)
-                implementation(Deps.Spek.dslMetadata)
             }
         }
 
         val jvmTest by getting {
             dependencies {
                 implementation(project(autoModules.testUtil))
-                implementation(Deps.Spek.dslJvm)
 
                 runtimeOnly(Deps.Kotlin.reflect)
-                runtimeOnly(Deps.Spek.junit5)
             }
         }
     }
@@ -39,6 +36,6 @@ kotlin {
 
 tasks.named<Test>("jvmTest") {
     useJUnitPlatform {
-        includeEngines("spek2", "kotest")
+        includeEngines("kotest")
     }
 }
