@@ -1,88 +1,100 @@
 package com.github.torresmi.remotedata
 
 import io.kotest.matchers.shouldBe
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
+import kotlin.test.Test
 
-object RemoteDataTest : Spek({
+class RemoteDataTest {
 
-    describe("construction") {
+    @Test
+    fun `succeed helper creator constructs Success case`() {
         val data = 1
-        val error = 0
-
-        it("can be created with data using success extension") {
-            data.success() shouldBe RemoteData.Success(data)
-        }
-
-        it("can be created with data using succeed creator") {
-            RemoteData.succeed(data) shouldBe RemoteData.Success(data)
-        }
-
-        it("can be created with error using failure extension") {
-            error.failure() shouldBe RemoteData.Failure(error)
-        }
-
-        it("can be created with error data fail creator") {
-            RemoteData.fail(error) shouldBe RemoteData.Failure(error)
-        }
+        RemoteData.succeed(data) shouldBe RemoteData.Success(data)
     }
 
-    describe("current state conditionals") {
-
-        context("is NotAsked") {
-            val sut = RemoteData.NotAsked
-
-            it("returns true") {
-                sut.isNotAsked() shouldBe true
-            }
-
-            it("returns false") {
-                sut.isLoading() shouldBe false
-                sut.isSuccess() shouldBe false
-                sut.isFailure() shouldBe false
-            }
-        }
-
-        context("is Loading") {
-            val sut = RemoteData.Loading
-
-            it("returns true") {
-                sut.isLoading() shouldBe true
-            }
-
-            it("returns false") {
-                sut.isNotAsked() shouldBe false
-                sut.isSuccess() shouldBe false
-                sut.isFailure() shouldBe false
-            }
-        }
-
-        context("is Success") {
-            val sut = RemoteData.Success<Int, Int>(0)
-
-            it("returns true") {
-                sut.isSuccess() shouldBe true
-            }
-
-            it("returns false") {
-                sut.isNotAsked() shouldBe false
-                sut.isLoading() shouldBe false
-                sut.isFailure() shouldBe false
-            }
-        }
-
-        context("is Failure") {
-            val sut = RemoteData.Failure<Int, Int>(0)
-
-            it("returns true") {
-                sut.isFailure() shouldBe true
-            }
-
-            it("returns false") {
-                sut.isNotAsked() shouldBe false
-                sut.isLoading() shouldBe false
-                sut.isSuccess() shouldBe false
-            }
-        }
+    @Test
+    fun `fail helper creator constructs Failure case`() {
+        val error = 1
+        RemoteData.fail(error) shouldBe RemoteData.Failure(error)
     }
-})
+
+    @Test
+    fun `isNotAsked for NotAsked returns true`() {
+        RemoteData.NotAsked.isNotAsked() shouldBe true
+    }
+
+    @Test
+    fun `isLoading for NotAsked returns false`() {
+        RemoteData.NotAsked.isLoading() shouldBe false
+    }
+
+    @Test
+    fun `isSuccess for NotAsked returns false`() {
+        RemoteData.NotAsked.isSuccess() shouldBe false
+    }
+
+    @Test
+    fun `isFailure for NotAsked returns false`() {
+        RemoteData.NotAsked.isFailure() shouldBe false
+    }
+
+    @Test
+    fun `isNotAsked for Loading returns false`() {
+        RemoteData.Loading.isNotAsked() shouldBe false
+    }
+
+    @Test
+    fun `isLoading for Loading returns true`() {
+        RemoteData.Loading.isLoading() shouldBe true
+    }
+
+    @Test
+    fun `isSuccess for Loading returns false`() {
+        RemoteData.Loading.isSuccess() shouldBe false
+    }
+
+    @Test
+    fun `isFailure for Loading returns false`() {
+        RemoteData.Loading.isFailure() shouldBe false
+    }
+
+    @Test
+    fun `isNotAsked for Success returns false`() {
+        RemoteData.succeed(0).isNotAsked() shouldBe false
+    }
+
+    @Test
+    fun `isLoading for Success returns false`() {
+        RemoteData.succeed(0).isLoading() shouldBe false
+    }
+
+    @Test
+    fun `isSuccess for Success returns false`() {
+        RemoteData.succeed(0).isSuccess() shouldBe true
+    }
+
+    @Test
+    fun `isFailure for Success returns false`() {
+        RemoteData.succeed(0).isFailure() shouldBe false
+    }
+
+    @Test
+    fun `isNotAsked for Failure returns false`() {
+        RemoteData.fail(0).isNotAsked() shouldBe false
+    }
+
+    @Test
+    fun `isLoading for Failure returns false`() {
+        RemoteData.fail(0).isLoading() shouldBe false
+    }
+
+    @Test
+    fun `isSuccess for Failure returns false`() {
+        RemoteData.fail(0).isSuccess() shouldBe false
+    }
+
+    @Test
+    fun `isFailure for Failure returns true`() {
+        RemoteData.fail(0).isFailure() shouldBe true
+    }
+
+}
