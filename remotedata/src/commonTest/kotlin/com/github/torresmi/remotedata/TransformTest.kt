@@ -6,7 +6,7 @@ import kotlin.test.Test
 class TransformTest {
 
     val mapper = { a: Int -> a + 1 }
-    val flatMapper = { a: Int -> RemoteData.succeed(1) }
+    val flatMapper = { _: Int -> RemoteData.succeed(1) }
     val dataMapper = RemoteData.Success<Int, DataMapper>(mapper)
 
     @Test
