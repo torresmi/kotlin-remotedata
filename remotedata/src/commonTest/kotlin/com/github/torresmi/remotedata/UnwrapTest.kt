@@ -16,9 +16,9 @@ class UnwrapTest2 {
     }
 
     @Test
-    fun `get value or null from Failure returns value`() {
+    fun `get value or null from Failure returns null`() {
         val value = 0
-        RemoteData.fail(value).getOrNull() shouldBe value
+        RemoteData.fail(value).getOrNull() shouldBe null
     }
 
     @Test
@@ -46,12 +46,12 @@ class UnwrapTest2 {
     }
 
     @Test
-    fun `get value or default from Failure returns value`() {
+    fun `get value or default from Failure returns default`() {
         val value = 0
         val default = 1
         with(RemoteData.fail(value)) {
-            getOrElse(default) shouldBe value
-            getOrElse { default } shouldBe value
+            getOrElse(default) shouldBe default
+            getOrElse { default } shouldBe default
         }
     }
 
