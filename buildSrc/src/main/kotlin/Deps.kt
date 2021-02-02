@@ -15,12 +15,6 @@ object Deps {
     object Kotlin : Group("org.jetbrains.kotlin") {
         val reflect = withArtifact("kotlin-reflect", Versions.kotlin)
     }
-
-    object Spek : Group("org.spekframework.spek2") {
-        val dslMetadata = withArtifact("spek-dsl-metadata", Versions.spek)
-        val dslJvm = withArtifact("spek-dsl-jvm", Versions.spek)
-        val junit5 = withArtifact("spek-runner-junit5", Versions.spek)
-    }
 }
 
 // Can't use in kts files yet https://github.com/gradle/gradle/issues/9270
@@ -46,6 +40,5 @@ object Versions {
     val kotest = "4.2.4"
     val kotlin = "1.4.10"
     val maven = "1.4.1"
-    val spek = "2.0.13"
     val versions = "0.33.0"
 }
