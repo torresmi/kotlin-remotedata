@@ -1,192 +1,135 @@
 package com.github.torresmi.remotedata
 
 import io.kotest.matchers.shouldBe
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
+import kotlin.test.Test
 
-object TransformTest : Spek({
+class TransformTest {
 
-    describe("mapping") {
-        val mapper = { a: Int -> a + 1 }
+    val mapper = { a: Int -> a + 1 }
+    val flatMapper = { a: Int -> RemoteData.succeed(1) }
+    val dataMapper = RemoteData.Success<Int, DataMapper>(mapper)
 
-        context("is NotAsked") {
-            val sut = RemoteData.NotAsked
-
-            it("keeps the NotAsked state") {
-                sut.map(mapper) shouldBe sut
-            }
-        }
-
-        context("is Loading") {
-            val sut = RemoteData.Loading
-
-            it("keeps the Loading state") {
-                sut.map(mapper) shouldBe sut
-            }
-        }
-
-        context("is Success") {
-            val sut = RemoteData.Success<Int, Int>(0)
-
-            it("invokes the mapper for a result") {
-                sut.map(mapper) shouldBe RemoteData.Success(1)
-            }
-        }
-
-        context("is Failure") {
-            val sut = RemoteData.Failure<Int, Int>(0)
-
-            it("keeps the Failure state") {
-                sut.map(mapper) shouldBe sut
-            }
-        }
+    @Test
+    fun `mapping NotAsked keeps the NotAsked state`() {
+        val sut = RemoteData.NotAsked
+        sut.map(mapper) shouldBe sut
     }
 
-    describe("mapping error") {
-        val mapper = { a: Int -> a + 1 }
-
-        context("is NotAsked") {
-            val sut = RemoteData.NotAsked
-
-            it("keeps the NotAsked state") {
-                sut.mapError(mapper) shouldBe sut
-            }
-        }
-
-        context("is Loading") {
-            val sut = RemoteData.Loading
-
-            it("keeps the Loading state") {
-                sut.mapError(mapper) shouldBe sut
-            }
-        }
-
-        context("is Success") {
-            val sut = RemoteData.Success<Int, Int>(0)
-
-            it("keeps the Success state") {
-                sut.mapError(mapper) shouldBe sut
-            }
-        }
-
-        context("is Failure") {
-            val sut = RemoteData.Failure<Int, Int>(0)
-
-            it("invokes the mapper for a result") {
-                sut.mapError(mapper) shouldBe RemoteData.Failure(1)
-            }
-        }
+    @Test
+    fun `mapping Loading keeps the Loading state`() {
+        val sut = RemoteData.Loading
+        sut.map(mapper) shouldBe sut
     }
 
-    describe("mapping both") {
-        val mapper = { a: Int -> a + 1 }
-
-        context("is NotAsked") {
-            val sut = RemoteData.NotAsked
-
-            it("keeps the NotAsked state") {
-                sut.mapBoth(mapper, mapper) shouldBe sut
-            }
-        }
-
-        context("is Loading") {
-            val sut = RemoteData.Loading
-
-            it("keeps the Loading state") {
-                sut.mapBoth(mapper, mapper) shouldBe sut
-            }
-        }
-
-        context("is Success") {
-            val sut = RemoteData.Success<Int, Int>(0)
-
-            it("invokes the success mapper for a result") {
-                sut.mapBoth(mapper, mapper) shouldBe RemoteData.Success(1)
-            }
-        }
-
-        context("is Failure") {
-            val sut = RemoteData.Failure<Int, Int>(0)
-
-            it("invokes the failure mapper for a result") {
-                sut.mapBoth(mapper, mapper) shouldBe RemoteData.Failure(1)
-            }
-        }
+    @Test
+    fun `mapping Failure keeps the Failure state`() {
+        val sut = RemoteData.fail(0)
+        sut.map(mapper) shouldBe sut
     }
 
-    describe("flatMapping") {
-        val newState = RemoteData.Success<Int, Int>(1)
-        val mapper = { a: Int -> newState }
-
-        context("is NotAsked") {
-            val sut = RemoteData.NotAsked
-
-            it("keeps the NotAsked state") {
-                sut.flatMap(mapper) shouldBe sut
-            }
-        }
-
-        context("is Loading") {
-            val sut = RemoteData.Loading
-
-            it("keeps the Loading state") {
-                sut.flatMap(mapper) shouldBe sut
-            }
-        }
-
-        context("is Success") {
-            val sut = RemoteData.Success<Int, Int>(0)
-
-            it("invokes the success mapper for a result") {
-                sut.flatMap(mapper) shouldBe RemoteData.Success(1)
-            }
-        }
-
-        context("is Failure") {
-            val sut = RemoteData.Failure<Int, Int>(0)
-
-            it("keeps the Failure state") {
-                sut.flatMap(mapper) shouldBe sut
-            }
-        }
+    @Test
+    fun `mapping Success invokes the mapper for a result`() {
+        val sut = RemoteData.succeed(0)
+        sut.map(mapper) shouldBe RemoteData.succeed(1)
     }
 
-    describe("andMapping") {
-        val mapper = { a: Int -> a + 1 }
-        val dataMapper = RemoteData.Success<Int, DataMapper>(mapper)
-
-        context("is NotAsked") {
-            val sut = RemoteData.NotAsked
-
-            it("keeps the NotAsked state") {
-                dataMapper andMap sut shouldBe sut
-            }
-        }
-
-        context("is Loading") {
-            val sut = RemoteData.Loading
-
-            it("keeps the Loading state") {
-                dataMapper andMap sut shouldBe sut
-            }
-        }
-
-        context("is Success") {
-            val sut = RemoteData.Success<Int, Int>(0)
-
-            it("invokes the success mapper for a result") {
-                dataMapper andMap sut shouldBe RemoteData.Success(1)
-            }
-        }
-
-        context("is Failure") {
-            val sut = RemoteData.Failure<Int, Int>(0)
-
-            it("invokes the failure mapper for a result") {
-                dataMapper andMap sut shouldBe sut
-            }
-        }
+    @Test
+    fun `error mapping NotAsked keeps the NotAsked state`() {
+        val sut = RemoteData.NotAsked
+        sut.mapError(mapper) shouldBe sut
     }
-})
+
+    @Test
+    fun `error mapping Loading keeps the Loading state`() {
+        val sut = RemoteData.Loading
+        sut.mapError(mapper) shouldBe sut
+    }
+
+    @Test
+    fun `error mapping Failure invokes the mapper for a result`() {
+        val sut = RemoteData.fail(0)
+        sut.map(mapper) shouldBe RemoteData.fail(1)
+    }
+
+    @Test
+    fun `error mapping Success keeps the Success state`() {
+        val sut = RemoteData.succeed(0)
+        sut.map(mapper) shouldBe RemoteData.succeed(1)
+    }
+
+    @Test
+    fun `mapping both NotAsked keeps the NotAsked state`() {
+        val sut = RemoteData.NotAsked
+        sut.mapBoth(mapper, mapper) shouldBe sut
+    }
+
+    @Test
+    fun `mapping both Loading keeps the Loading state`() {
+        val sut = RemoteData.Loading
+        sut.mapBoth(mapper, mapper) shouldBe sut
+    }
+
+    @Test
+    fun `mapping both Failure invokes the failure mapper for a result`() {
+        val sut = RemoteData.fail(0)
+        val failureMapper = { a: Int -> a + 2 }
+        sut.mapBoth(failureMapper, mapper) shouldBe RemoteData.fail(2)
+    }
+
+    @Test
+    fun `mapping both Success invokes the mapper for a result`() {
+        val sut = RemoteData.succeed(0)
+        val successMapper = { a: Int -> a + 2 }
+        sut.mapBoth(mapper, successMapper) shouldBe RemoteData.succeed(2)
+    }
+
+    @Test
+    fun `flatMapping both NotAsked keeps the NotAsked state`() {
+        val sut = RemoteData.NotAsked
+        sut.flatMap(flatMapper) shouldBe sut
+    }
+
+    @Test
+    fun `flatMapping both Loading keeps the Loading state`() {
+        val sut = RemoteData.Loading
+        sut.flatMap(flatMapper) shouldBe sut
+    }
+
+    @Test
+    fun `flatMapping both Failure invokes the failure mapper for a result`() {
+        val sut = RemoteData.fail(0)
+        sut.flatMap(flatMapper) shouldBe RemoteData.succeed(1)
+    }
+
+    @Test
+    fun `flatMapping both Success invokes the mapper for a result`() {
+        val sut = RemoteData.succeed(0)
+        sut.flatMap(flatMapper) shouldBe RemoteData.succeed(1)
+    }
+
+    @Test
+    fun `andMapping both NotAsked keeps the NotAsked state`() {
+        val sut = RemoteData.NotAsked
+        dataMapper andMap sut shouldBe sut
+    }
+
+    @Test
+    fun `andMapping both Loading keeps the Loading state`() {
+        val sut = RemoteData.Loading
+        dataMapper andMap sut shouldBe sut
+    }
+
+    @Test
+    fun `andMapping both Failure keeps the Failure state`() {
+        val sut = RemoteData.fail(0)
+        dataMapper andMap sut shouldBe sut
+    }
+
+    @Test
+    fun `andMapping both Success invokes the mapper for a result`() {
+        val sut = RemoteData.succeed(0)
+        dataMapper andMap sut shouldBe RemoteData.succeed(1)
+    }
+}
 
 private typealias DataMapper = (Int) -> Int

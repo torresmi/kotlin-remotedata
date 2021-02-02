@@ -1,91 +1,67 @@
 package com.github.torresmi.remotedata
 
-import io.kotest.assertions.fail
 import io.kotest.matchers.shouldBe
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
+import kotlin.test.Test
 
-object UnwrapTest : Spek({
+class UnwrapTest2 {
 
-    describe("get values") {
-
-        context("is NotAsked") {
-            val sut = RemoteData.NotAsked
-
-            it("returns null") {
-                sut.getOrNull() shouldBe null
-            }
-        }
-
-        context("is Loading") {
-            val sut = RemoteData.Loading
-
-            it("returns null") {
-                sut.getOrNull() shouldBe null
-            }
-        }
-
-        context("is Failure") {
-            val sut = RemoteData.Failure<Int, Int>(0)
-
-            it("returns null") {
-                sut.getOrNull() shouldBe null
-            }
-        }
-
-        context("RemoteData is a success") {
-            val value = 0
-            val sut = RemoteData.Success<Int, Int>(value)
-
-            it("provides the success value") {
-                sut.getOrNull() shouldBe value
-            }
-        }
+    @Test
+    fun `get value from NotAsked returns null`() {
+        RemoteData.NotAsked.getOrNull() shouldBe null
     }
 
-    describe("get values or default") {
+    @Test
+    fun `get value or null from Loading returns null`() {
+        RemoteData.Loading.getOrNull() shouldBe null
+    }
+
+    @Test
+    fun `get value or null from Failure returns value`() {
+        val value = 0
+        RemoteData.fail(value).getOrNull() shouldBe value
+    }
+
+    @Test
+    fun `get value or null from Success returns value`() {
+        val value = 0
+        RemoteData.succeed(value).getOrNull() shouldBe value
+    }
+
+    @Test
+    fun `get value or default from NotAsked returns default`() {
         val default = 0
-
-        context("is NotAsked") {
-            val sut = RemoteData.NotAsked
-
-            it("returns null") {
-                sut.getOrElse(default) shouldBe default
-                sut.getOrElse { default } shouldBe default
-            }
-        }
-
-        context("is Loading") {
-            val sut = RemoteData.Loading
-
-            it("returns null") {
-                sut.getOrElse(default) shouldBe default
-                sut.getOrElse { default } shouldBe default
-            }
-        }
-
-        context("is Failure") {
-            val sut = RemoteData.Failure<Int, Int>(0)
-
-            it("returns null") {
-                sut.getOrElse(default) shouldBe default
-                sut.getOrElse { default } shouldBe default
-            }
-        }
-
-        context("RemoteData is a success") {
-            val value = 1
-            val sut = RemoteData.Success<Int, Int>(value)
-
-            it("provides the success value") {
-                sut.getOrElse(default) shouldBe value
-                sut.getOrElse { default } shouldBe value
-            }
-
-            it("does not invoke else function") {
-
-                sut.getOrElse { fail("should not be called") } shouldBe value
-            }
+        with(RemoteData.NotAsked) {
+            getOrElse(default) shouldBe default
+            getOrElse { default } shouldBe default
         }
     }
-})
+
+    @Test
+    fun `get value or default from Loading returns default`() {
+        val default = 0
+        with (RemoteData.Loading) {
+            getOrElse(default) shouldBe default
+            getOrElse { default } shouldBe default
+        }
+    }
+
+    @Test
+    fun `get value or default from Failure returns value`() {
+        val value = 0
+        val default = 1
+        with(RemoteData.fail(value)) {
+            getOrElse(default) shouldBe value
+            getOrElse { default } shouldBe value
+        }
+    }
+
+    @Test
+    fun `get value or default from Success returns value`() {
+        val value = 0
+        val default = 1
+        with(RemoteData.succeed(value)) {
+            getOrElse(default) shouldBe value
+            getOrElse { default } shouldBe value
+        }
+    }
+}
