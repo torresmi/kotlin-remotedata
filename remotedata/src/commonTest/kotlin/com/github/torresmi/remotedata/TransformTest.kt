@@ -54,7 +54,7 @@ class TransformTest {
     @Test
     fun `error mapping Success keeps the Success state`() {
         val sut = RemoteData.succeed(0)
-        sut.mapError(mapper) shouldBe RemoteData.succeed(1)
+        sut.mapError(mapper) shouldBe sut
     }
 
     @Test

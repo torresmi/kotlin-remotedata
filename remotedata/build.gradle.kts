@@ -9,6 +9,7 @@ plugins {
 
 kotlin {
     jvm()
+
     sourceSets {
         val commonMain by getting {
         }
@@ -31,6 +32,15 @@ kotlin {
                 runtimeOnly(Deps.Kotlin.reflect)
             }
         }
+    }
+
+    targets {
+        iosArm64()
+        watchosArm64()
+        tvosArm64()
+        macosX64()
+        linuxX64()
+        mingwX64()
     }
 }
 

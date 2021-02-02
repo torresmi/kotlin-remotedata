@@ -4,9 +4,21 @@ on: push
 
 jobs:
   build_and_check:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - macos-latest
+          - ubuntu-latest
+          - windows-latest
     steps:
       - uses: actions/checkout@v2
+
+      - uses: actions/cache@v1.1.2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle-
 
       - name: Build and test
         uses: eskatos/gradle-command-action@v1
