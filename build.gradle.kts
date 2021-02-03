@@ -23,7 +23,6 @@ subprojects {
 
     repositories {
         jcenter()
-        maven { url = uri("http://dl.bintray.com/jetbrains/spek") }
     }
 }
 
