@@ -1,12 +1,10 @@
 buildscript {
 
     repositories {
-        jcenter()
-        maven { url = uri("https://plugins.gradle.org/m2/") }
+        mavenCentral()
     }
 
     dependencies {
-        classpath("com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5")
         classpath("org.jetbrains.dokka:dokka-gradle-plugin:1.4.10.2")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.10")
         classpath("com.github.dcendents:android-maven-gradle-plugin:1.4.1")
@@ -22,14 +20,14 @@ subprojects {
     }
 
     repositories {
-        jcenter()
+        mavenCentral()
     }
 }
 
 // Dokka
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 apply(plugin="org.jetbrains.dokka")

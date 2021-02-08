@@ -4,7 +4,6 @@ plugins {
     kotlin("multiplatform")
     id("org.jetbrains.dokka")
     id("com.github.dcendents.android-maven")
-    id("com.jfrog.bintray")
 }
 
 kotlin {
