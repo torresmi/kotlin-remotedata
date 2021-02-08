@@ -3,12 +3,12 @@ package com.github.torresmi.remotedata.property
 import com.github.torresmi.remotedata.RemoteData
 import com.github.torresmi.remotedata.getOrElse
 import com.github.torresmi.remotedata.getOrNull
+import com.github.torresmi.remotedata.test.util.generation.remoteDataNonSuccess
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.int
 import io.kotest.property.checkAll
-import com.github.torresmi.remotedata.generation.remoteDataNonSuccess
 
 class UnwrapTest : DescribeSpec({
 

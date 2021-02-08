@@ -10,6 +10,11 @@ plugins {
 kotlin {
     jvm()
 
+    js {
+        browser()
+        nodejs()
+    }
+
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -18,11 +23,21 @@ kotlin {
             }
         }
 
-        val jvmTest by getting {
+        val commonTest by getting {
             dependencies {
                 implementation(project(autoModules.testUtil))
+            }
+        }
 
+        val jvmTest by getting {
+            dependencies {
                 runtimeOnly(Deps.Kotlin.reflect)
+            }
+        }
+
+        val jsTest by getting {
+            dependencies {
+                implementation(kotlin("test-js"))
             }
         }
     }
@@ -31,7 +46,6 @@ kotlin {
         iosArm64()
         watchosArm64()
         tvosArm64()
-        js()
         macosX64()
         linuxX64()
         mingwX64()

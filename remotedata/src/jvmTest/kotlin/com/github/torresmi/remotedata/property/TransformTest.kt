@@ -1,6 +1,8 @@
 package com.github.torresmi.remotedata.property
 
 import com.github.torresmi.remotedata.*
+import com.github.torresmi.remotedata.test.util.generation.remoteData
+import com.github.torresmi.remotedata.test.util.generation.remoteDataNonSuccess
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
@@ -8,8 +10,6 @@ import io.kotest.property.arbitrary.int
 import io.kotest.property.arbitrary.map
 import io.kotest.property.arbitrary.string
 import io.kotest.property.checkAll
-import com.github.torresmi.remotedata.generation.remoteData
-import com.github.torresmi.remotedata.generation.remoteDataNonSuccess
 
 class TransformationsTest : DescribeSpec({
 
