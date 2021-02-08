@@ -9,18 +9,12 @@ plugins {
 
 kotlin {
     jvm()
+
     sourceSets {
         val commonMain by getting {
             dependencies {
                 implementation(project(autoModules.remotedata))
                 implementation(Deps.Coroutines.core)
-                implementation(Deps.Coroutines.test)
-            }
-        }
-
-        val commonTest by getting {
-            dependencies {
-                implementation(Deps.Kotest.assertions)
             }
         }
 
@@ -31,6 +25,16 @@ kotlin {
                 runtimeOnly(Deps.Kotlin.reflect)
             }
         }
+    }
+
+    targets {
+        iosArm64()
+        watchosArm64()
+        tvosArm64()
+        js()
+        macosX64()
+        linuxX64()
+        mingwX64()
     }
 }
 
