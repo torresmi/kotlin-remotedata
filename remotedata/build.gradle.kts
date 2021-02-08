@@ -15,6 +15,14 @@ kotlin {
         nodejs()
     }
 
+    ios()
+    tvos()
+    watchos()
+
+    linuxX64()
+    macosX64()
+    mingwX64()
+
     sourceSets {
         val commonTest by getting {
             dependencies {
@@ -42,15 +50,6 @@ kotlin {
             }
         }
 
-    }
-
-    targets {
-        iosArm64()
-        watchosArm64()
-        tvosArm64()
-        macosX64()
-        linuxX64()
-        mingwX64()
     }
 }
 

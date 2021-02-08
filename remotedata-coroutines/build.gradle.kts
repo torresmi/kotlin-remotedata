@@ -15,6 +15,14 @@ kotlin {
         nodejs()
     }
 
+    ios()
+    tvos()
+    watchos()
+
+    linuxX64()
+    macosX64()
+    mingwX64()
+
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -40,15 +48,6 @@ kotlin {
                 implementation(kotlin("test-js"))
             }
         }
-    }
-
-    targets {
-        iosArm64()
-        watchosArm64()
-        tvosArm64()
-        macosX64()
-        linuxX64()
-        mingwX64()
     }
 }
 

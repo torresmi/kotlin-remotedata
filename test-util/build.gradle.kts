@@ -12,14 +12,13 @@ kotlin {
         nodejs()
     }
 
-    targets {
-        iosArm64()
-        watchosArm64()
-        tvosArm64()
-        macosX64()
-        linuxX64()
-        mingwX64()
-    }
+    ios()
+    tvos()
+    watchos()
+
+    linuxX64()
+    macosX64()
+    mingwX64()
 
     sourceSets {
         val commonMain by getting {
