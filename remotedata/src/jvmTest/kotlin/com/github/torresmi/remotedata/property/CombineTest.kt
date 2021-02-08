@@ -8,7 +8,7 @@ import io.kotest.property.Arb
 import io.kotest.property.arbitrary.int
 import io.kotest.property.arbitrary.map
 import io.kotest.property.checkAll
-import remotedata.generation.remoteDataNonSuccess
+import com.github.torresmi.remotedata.generation.remoteDataNonSuccess
 
 class CombineTest : DescribeSpec({
 

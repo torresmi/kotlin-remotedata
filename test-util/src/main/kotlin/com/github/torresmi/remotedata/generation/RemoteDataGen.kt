@@ -1,4 +1,4 @@
-package remotedata.generation
+package com.github.torresmi.remotedata.generation
 
 import com.github.torresmi.remotedata.RemoteData
 import io.kotest.property.Arb

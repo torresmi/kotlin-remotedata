@@ -14,8 +14,8 @@ import io.kotest.property.arbitrary.int
 import io.kotest.property.arbitrary.map
 import io.kotest.property.arbitrary.string
 import io.kotest.property.checkAll
-import remotedata.generation.remoteData
-import remotedata.generation.remoteDataNonSuccess
+import com.github.torresmi.remotedata.generation.remoteData
+import com.github.torresmi.remotedata.generation.remoteDataNonSuccess
 
 class TransformTest : DescribeSpec({
 
