@@ -11,9 +11,6 @@ kotlin {
     jvm()
 
     sourceSets {
-        val commonMain by getting {
-        }
-
         val commonTest by getting {
             dependencies {
                 implementation(Deps.Kotest.assertions)
@@ -38,6 +35,7 @@ kotlin {
         iosArm64()
         watchosArm64()
         tvosArm64()
+        js()
         macosX64()
         linuxX64()
         mingwX64()
