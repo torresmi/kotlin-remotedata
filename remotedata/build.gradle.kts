@@ -52,6 +52,12 @@ kotlin {
     }
 }
 
+signing {
+    val SIGNING_PRIVATE_KEY: String? by project
+    val SIGNING_PASSWORD: String? by project
+    useInMemoryPgpKeys(SIGNING_PRIVATE_KEY, SIGNING_PASSWORD)
+}
+
 tasks.named<Test>("jvmTest") {
     useJUnitPlatform {
         includeEngines("kotest")
