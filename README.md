@@ -126,10 +126,6 @@ State after loading:
  4. This state allows for **16 different combinations**, and many of those wouldn't make sense. For example, if the state says it's loading but it also has an error or data. 
  
  If you have a list of items to load, one could use an empty list instead of `null`. However, there is still the issue of easily mixing up if the data is _truly_ empty or if it is just empty from loading or errors.
-
-## Documentation
-![Dokka](https://github.com/torresmi/kotlin-remotedata/raw/master/docs/dokka/-modules.html)
-
  ## Download
 Gradle: 
 ```groovy
