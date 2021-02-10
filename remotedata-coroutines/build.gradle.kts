@@ -3,8 +3,7 @@ import dependencies.Deps
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.dokka")
-    id("com.github.dcendents.android-maven")
-    id("com.jfrog.bintray")
+    id("com.vanniktech.maven.publish")
 }
 
 kotlin {
@@ -49,6 +48,12 @@ kotlin {
             }
         }
     }
+}
+
+signing {
+    val SIGNING_PRIVATE_KEY: String? by project
+    val SIGNING_PASSWORD: String? by project
+    useInMemoryPgpKeys(SIGNING_PRIVATE_KEY, SIGNING_PASSWORD)
 }
 
 tasks.named<Test>("jvmTest") {
