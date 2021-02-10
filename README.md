@@ -128,7 +128,7 @@ State after loading:
  If you have a list of items to load, one could use an empty list instead of `null`. However, there is still the issue of easily mixing up if the data is _truly_ empty or if it is just empty from loading or errors.
 
 ## Documentation
-![Dokka](https://torresmi.github.io/kotlin-remotedata/)
+[Dokka](https://torresmi.github.io/kotlin-remotedata/)
 
  ## Download
 Gradle: 
