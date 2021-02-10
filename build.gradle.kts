@@ -34,7 +34,7 @@ repositories {
 }
 
 tasks.withType<org.jetbrains.dokka.gradle.DokkaMultiModuleTask>().configureEach {
-    outputDirectory.set(projectDir.resolve("docs"))
+    outputDirectory.set(projectDir.resolve("docs/dokka"))
 }
 
 apply(plugin="org.jetbrains.dokka")
