@@ -3,6 +3,7 @@ import dependencies.Deps
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.dokka")
+    id("com.vanniktech.maven.publish")
 }
 
 kotlin {
