@@ -1,7 +1,8 @@
 ![CI](https://github.com/torresmi/kotlin-remotedata/workflows/CI/badge.svg)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.torresmi.remotedata/remotedata/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.torresmi.remotedata/remotedata)
 
 # RemoteData
-Data type that represents the possible states when fetching data from a remote source. Kotlin port of https://github.com/krisajenkins/remotedata
+Data type that represents the possible states when fetching data from a remote source. Kotlin Native port of https://github.com/krisajenkins/remotedata
 
 This is a sealed class that provides 4 possible states when loading data. Similar to an Enum, but each case can have associated values. So you can always correctly model the state of the request operation at any given point.
  
@@ -131,16 +132,32 @@ State after loading:
 [Dokka](https://torresmi.github.io/kotlin-remotedata/)
 
  ## Download
+### Core
 Gradle: 
 ```groovy
-compile 'com.github.torresmi:remotedata:1.1'
+compile 'com.github.torresmi.remotedata:remotedata:2.0.0'
 ```
 Maven:
 ```xml
 <dependency>
-  <groupId>com.github.torresmi</groupId>
+  <groupId>com.github.torresmi.remotedata</groupId>
   <artifactId>remotedata</artifactId>
-  <version>1.1</version>
+  <version>2.0.0</version>
+  <type>pom</type>
+</dependency>
+
+### Coroutine Support
+### Core
+Gradle: 
+```groovy
+compile 'com.github.torresmi.remotedata:remotedata-coroutines:2.0.0'
+```
+Maven:
+```xml
+<dependency>
+  <groupId>com.github.torresmi.remotedata</groupId>
+  <artifactId>remotedata-coroutines</artifactId>
+  <version>2.0.0</version>
   <type>pom</type>
 </dependency>
 ```
