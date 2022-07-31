@@ -1,5 +1,3 @@
-import dependencies.Deps
-
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.dokka")
@@ -25,7 +23,7 @@ kotlin {
     sourceSets {
         val commonTest by getting {
             dependencies {
-                implementation(Deps.Kotest.assertions)
+                implementation(libs.kotest.assertions)
 
                 implementation(project(":test-util"))
 
@@ -39,7 +37,7 @@ kotlin {
 
                 implementation(kotlin("test-junit"))
 
-                runtimeOnly(Deps.Kotlin.reflect)
+                runtimeOnly(libs.kotlin.reflect)
             }
         }
 

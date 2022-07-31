@@ -1,5 +1,3 @@
-import dependencies.Deps
-
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.dokka")
@@ -26,7 +24,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(project(":remotedata"))
-                implementation(Deps.Coroutines.core)
+                implementation(libs.coroutines.core)
             }
         }
 
@@ -38,7 +36,7 @@ kotlin {
 
         val jvmTest by getting {
             dependencies {
-                runtimeOnly(Deps.Kotlin.reflect)
+                runtimeOnly(libs.kotlin.reflect)
             }
         }
 

@@ -1,5 +1,3 @@
-import dependencies.Deps
-
 plugins {
     kotlin("multiplatform")
 }
@@ -29,10 +27,10 @@ kotlin {
 
         val jvmMain by getting {
             dependencies {
-                api(Deps.Coroutines.test)
-                api(Deps.Kotest.assertions)
-                api(Deps.Kotest.property)
-                api(Deps.Kotest.runner)
+                api(libs.coroutines.test)
+                api(libs.kotest.assertions)
+                api(libs.kotest.property)
+                api(libs.kotest.runner)
             }
         }
     }
