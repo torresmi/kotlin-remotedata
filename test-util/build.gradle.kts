@@ -1,7 +1,5 @@
-import dependencies.Deps
-
 plugins {
-    kotlin("multiplatform")
+    alias(libs.plugins.kotlin.multiplatform)
 }
 
 kotlin {
@@ -23,31 +21,16 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(project(autoModules.remotedata))
+                implementation(project(":remotedata"))
             }
-        }
-
-        val defaultNaming by creating {
-            dependsOn(commonMain)
-            kotlin.srcDir("defaultNaming")
         }
 
         val jvmMain by getting {
             dependencies {
-                api(Deps.Coroutines.test)
-                api(Deps.Kotest.assertions)
-                api(Deps.Kotest.property)
-                api(Deps.Kotest.runner)
-            }
-        }
-
-        val defaultNamingTargets = targets.names.minus(
-            setOf("js", "metadata")
-        )
-
-        defaultNamingTargets.forEach { name ->
-            getByName("${name}Main") {
-                dependsOn(defaultNaming)
+                api(libs.coroutines.test)
+                api(libs.kotest.assertions)
+                api(libs.kotest.property)
+                api(libs.kotest.runner)
             }
         }
     }

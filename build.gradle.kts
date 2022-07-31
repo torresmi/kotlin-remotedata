@@ -1,22 +1,13 @@
-buildscript {
-
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
-
-    dependencies {
-        classpath("org.jetbrains.dokka:dokka-gradle-plugin:1.4.20")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.10")
-        classpath("com.github.ben-manes:gradle-versions-plugin:0.33.0")
-        classpath("com.vanniktech:gradle-maven-publish-plugin:0.13.0")
-    }
+plugins {
+    alias(libs.plugins.kotlin.multiplatform) version libs.versions.kotlin apply false
+    alias(libs.plugins.kotlin.js) version libs.versions.kotlin apply false
+    alias(libs.plugins.dokka)
+    alias(libs.plugins.maven) apply false
 }
 
 subprojects {
 
     apply {
-        plugin("com.github.ben-manes.versions")
         from("$rootDir/scripts/jacoco.gradle")
     }
 
@@ -36,5 +27,3 @@ repositories {
 tasks.withType<org.jetbrains.dokka.gradle.DokkaMultiModuleTask>().configureEach {
     outputDirectory.set(projectDir.resolve("dokka"))
 }
-
-apply(plugin="org.jetbrains.dokka")

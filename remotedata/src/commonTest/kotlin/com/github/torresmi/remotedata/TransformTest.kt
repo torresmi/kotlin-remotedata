@@ -1,7 +1,7 @@
 package com.github.torresmi.remotedata
 
-import com.github.torresmi.remotedata.test.util.JsName
 import io.kotest.matchers.shouldBe
+import kotlin.js.JsName
 import kotlin.test.Test
 
 class TransformTest {

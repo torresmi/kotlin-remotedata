@@ -1,9 +1,7 @@
-import dependencies.Deps
-
 plugins {
-    kotlin("multiplatform")
-    id("org.jetbrains.dokka")
-    id("com.vanniktech.maven.publish")
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.dokka)
+    alias(libs.plugins.maven)
 }
 
 kotlin {
@@ -25,9 +23,9 @@ kotlin {
     sourceSets {
         val commonTest by getting {
             dependencies {
-                implementation(Deps.Kotest.assertions)
+                implementation(libs.kotest.assertions)
 
-                implementation(project(autoModules.testUtil))
+                implementation(project(":test-util"))
 
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
@@ -39,7 +37,7 @@ kotlin {
 
                 implementation(kotlin("test-junit"))
 
-                runtimeOnly(Deps.Kotlin.reflect)
+                runtimeOnly(libs.kotlin.reflect)
             }
         }
 
