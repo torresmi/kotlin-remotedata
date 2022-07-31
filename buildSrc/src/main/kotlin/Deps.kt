@@ -35,10 +35,10 @@ private fun dependency(path: String, version: String) = "$path:$version"
 object Versions {
     val bintray = "1.8.5"
     val coroutines = "1.6.4"
-    val dokka = "1.4.20"
+    val dokka = "1.6.21"
     val jacoco = "0.8.6"
-    val kotest = "5.4.0"
+    val kotest = "5.4.1"
     val kotlin = "1.6.21"
     val maven = "1.4.1"
-    val versions = "0.36.0"
+    val versions = "0.42.0"
 }
