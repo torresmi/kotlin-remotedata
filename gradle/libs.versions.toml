@@ -1,0 +1,31 @@
+[versions]
+
+coroutines = "1.6.4"
+
+kotest = "5.4.1"
+
+kotlin = "1.7.10"
+
+[plugins]
+
+dokka = "org.jetbrains.dokka:1.7.10"
+
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+
+kotlin-js = { id = "org.jetbrains.kotlin.js", version.ref = "kotlin" }
+
+maven = "com.vanniktech.maven.publish:0.13.0"
+
+[libraries]
+
+coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+
+kotest-assertions = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
+
+kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotest" }
+
+kotest-runner = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
+
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }

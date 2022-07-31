@@ -1,9 +1,7 @@
-import dependencies.Deps
-
 plugins {
-    kotlin("multiplatform")
-    id("org.jetbrains.dokka")
-    id("com.vanniktech.maven.publish")
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.dokka)
+    alias(libs.plugins.maven)
 }
 
 kotlin {
@@ -25,20 +23,20 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(project(autoModules.remotedata))
-                implementation(Deps.Coroutines.core)
+                implementation(project(":remotedata"))
+                implementation(libs.coroutines.core)
             }
         }
 
         val commonTest by getting {
             dependencies {
-                implementation(project(autoModules.testUtil))
+                implementation(project(":test-util"))
             }
         }
 
         val jvmTest by getting {
             dependencies {
-                runtimeOnly(Deps.Kotlin.reflect)
+                runtimeOnly(libs.kotlin.reflect)
             }
         }
 
