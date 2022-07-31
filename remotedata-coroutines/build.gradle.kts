@@ -25,14 +25,14 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(project(autoModules.remotedata))
+                implementation(project(":remotedata"))
                 implementation(Deps.Coroutines.core)
             }
         }
 
         val commonTest by getting {
             dependencies {
-                implementation(project(autoModules.testUtil))
+                implementation(project(":test-util"))
             }
         }
 

@@ -27,7 +27,7 @@ kotlin {
             dependencies {
                 implementation(Deps.Kotest.assertions)
 
-                implementation(project(autoModules.testUtil))
+                implementation(project(":test-util"))
 
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))

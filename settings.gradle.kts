@@ -6,5 +6,5 @@ pluginManagement {
 }
 
 plugins {
-    id("com.pablisco.gradle.automodule") version "0.15"
+    id("com.pablisco.gradle.auto.include") version "1.3"
 }
