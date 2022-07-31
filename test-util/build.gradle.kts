@@ -27,27 +27,12 @@ kotlin {
             }
         }
 
-        val defaultNaming by creating {
-            dependsOn(commonMain)
-            kotlin.srcDir("defaultNaming")
-        }
-
         val jvmMain by getting {
             dependencies {
                 api(Deps.Coroutines.test)
                 api(Deps.Kotest.assertions)
                 api(Deps.Kotest.property)
                 api(Deps.Kotest.runner)
-            }
-        }
-
-        val defaultNamingTargets = targets.names.minus(
-            setOf("js", "metadata")
-        )
-
-        defaultNamingTargets.forEach { name ->
-            getByName("${name}Main") {
-                dependsOn(defaultNaming)
             }
         }
     }
