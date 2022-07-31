@@ -4,11 +4,11 @@ coroutines = "1.6.4"
 
 kotest = "5.4.1"
 
-kotlin = "1.6.21"
+kotlin = "1.7.10"
 
 [plugins]
 
-dokka = "org.jetbrains.dokka:1.4.20"
+dokka = "org.jetbrains.dokka:1.7.10"
 
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 
