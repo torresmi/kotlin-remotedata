@@ -5,6 +5,8 @@ pluginManagement {
     }
 }
 
-plugins {
-    id("com.pablisco.gradle.auto.include") version "1.3"
-}
+include(
+    ":remotedata",
+    ":remotedata-coroutines",
+    ":test-util",
+)
