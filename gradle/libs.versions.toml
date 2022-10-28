@@ -2,7 +2,7 @@
 
 coroutines = "1.6.4"
 
-kotest = "5.5.1"
+kotest = "5.5.3"
 
 kotlin = "1.7.20"
 
