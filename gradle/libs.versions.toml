@@ -4,7 +4,7 @@ coroutines = "1.6.4"
 
 kotest = "5.5.4"
 
-kotlin = "1.7.21"
+kotlin = "1.7.22"
 
 [plugins]
 
